@@ -1,9 +1,12 @@
-package domain.entity;
+package com.CardMap.domain.entity;
 
-import domain.enums.UserStatus;
+import com.CardMap.domain.enums.UserStatus;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -11,7 +14,9 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Table(name = "user")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User{
+
     @Id
     @Column(name = "user_id")
     private String id;
@@ -20,11 +25,11 @@ public class User{
 
     private String userName;
 
-    @OneToMany(mappedBy="user")
-    private List<BookMark> bookMarkList;
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    private final List<BookMark> bookMarkList = new ArrayList<>();
 
-    @OneToMany(mappedBy="user")
-    private List<UserCard> userCardList;
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    private final List<UserCard> userCardList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;

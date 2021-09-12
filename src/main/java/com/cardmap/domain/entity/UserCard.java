@@ -1,10 +1,9 @@
-package domain.entity;
+package com.CardMap.domain.entity;
 
-import domain.enums.UseStatus;
+import com.CardMap.domain.enums.UseStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,7 +17,6 @@ import java.util.List;
 public class UserCard {
 
     @Id
-    @Column(name = "card_no")
     private String cardNo;
 
     private String cardName;

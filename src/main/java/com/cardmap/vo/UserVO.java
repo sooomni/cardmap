@@ -1,4 +1,4 @@
-package vo;
+package com.CardMap.vo;
 
 public class UserVO {
 }

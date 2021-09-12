@@ -1,18 +1,24 @@
-package domain.entity;
+package com.CardMap.domain.entity;
 
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Table(name = "annual_fee")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AnnualFee {
 
     @Id
     @GeneratedValue
-    @Column(name="annual_fee_seq")
     private Long annualFeeSeq;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="card_info_seq")
-    @ManyToOne
     private CardInfo cardInfo;
 
     private String cardBrand;
