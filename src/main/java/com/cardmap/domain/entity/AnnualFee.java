@@ -23,6 +23,6 @@ public class AnnualFee {
 
     private String cardBrand;
 
-    private long fee;
+    private Long fee;
 
 }

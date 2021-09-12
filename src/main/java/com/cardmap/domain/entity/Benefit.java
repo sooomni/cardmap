@@ -16,7 +16,7 @@ public class Benefit {
 
     @Id
     @GeneratedValue
-    private long benefitSeq;
+    private Long benefitSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "card_info_seq")
