@@ -14,7 +14,7 @@ public class Benefit {
     @JoinColumn(name = "card_info_seq")
     private CardInfo cardInfo;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private BenefitType benefitType;
 
     private String benefitCont;
