@@ -1,5 +1,7 @@
 package domain.entity;
 
+import domain.enums.CreditStatus;
+import domain.enums.TrafficStatus;
 import lombok.Getter;
 
 import javax.persistence.*;

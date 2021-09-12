@@ -1,5 +1,6 @@
 package domain.entity;
 
+import domain.enums.UserStatus;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

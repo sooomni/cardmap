@@ -1,5 +1,6 @@
 package domain.entity;
 
+import domain.enums.UseStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

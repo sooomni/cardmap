@@ -1,5 +1,8 @@
 package domain.entity;
 
+import domain.enums.BenefitCategory;
+import domain.enums.BenefitType;
+
 import javax.persistence.*;
 
 @Entity
