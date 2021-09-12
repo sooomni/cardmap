@@ -21,7 +21,7 @@ public class Benefit {
 
     @OneToMany
     @JoinColumn(name = "benefitCategory")
-    private BenegitCategory benegitCategory;
+    private BenefitCategory benegitCategory;
 
     private String performance;
 

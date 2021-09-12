@@ -1,37 +1,39 @@
 package domain.entity;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
+@Entity
+@Getter
+@Table(name = "user")
 public class User{
     @Id
-    String id;
+    private String id;
 
-    String password;
+    private String password;
 
-    String userName;
-
-    @OneToMany(mappedBy="user")
-    List<BookMark> bookMarkList;
+    private String userName;
 
     @OneToMany(mappedBy="user")
-    List<CardInfo> cardInfoList;
+    private List<BookMark> bookMarkList;
+
+    @OneToMany(mappedBy="user")
+    private List<CardInfo> cardInfoList;
 
     @Enumerated(EnumType.STRING)
-    UserStatus status;
+    private UserStatus status;
 
-    String mobile;
+    private String mobile;
 
-    String modId;
+    private String modId;
 
-    String regId;
+    private String regId;
 
-    LocalDateTime modDate;
+    private LocalDateTime modDate;
 
-    LocalDateTime regDate;
+    private LocalDateTime regDate;
 }
