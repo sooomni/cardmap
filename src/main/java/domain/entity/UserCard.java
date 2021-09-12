@@ -1,6 +1,9 @@
 package domain.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Table(name = "user_card")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserCard {
 
     @Id
@@ -22,11 +26,11 @@ public class UserCard {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "userCard")
-    private List<CardInfo> cardInfoList = new ArrayList<>();
+    @OneToMany(mappedBy = "userCard", cascade = CascadeType.ALL)
+    private final List<CardInfo> cardInfoList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userCard")
-    private List<CardUseHist> cardUseHistList;
+    @OneToMany(mappedBy = "userCard", cascade = CascadeType.ALL)
+    private final List<CardUseHist> cardUseHistList = new ArrayList<>();
 
     private LocalDateTime expDate;
     private String cvcNo;

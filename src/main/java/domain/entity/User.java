@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "user")
 public class User{
     @Id
+    @Column(name = "user_id")
     private String id;
 
     private String password;
@@ -22,7 +23,7 @@ public class User{
     private List<BookMark> bookMarkList;
 
     @OneToMany(mappedBy="user")
-    private List<CardInfo> cardInfoList;
+    private List<UserCard> userCardList;
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;
