@@ -1,10 +1,10 @@
-package com.cardmap;
+package com.CardMap;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CardmapApplicationTests {
+class CardMapApplicationTests {
 
 	@Test
 	void contextLoads() {
