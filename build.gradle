@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'com.CardMap'
+group = 'com.cardMap'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -25,6 +25,8 @@ dependencies {
 	// implementation 'org.springframework.boot:spring-boot-starter-quartz'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
