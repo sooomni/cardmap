@@ -37,6 +37,20 @@ public class UserCard {
     @Enumerated(EnumType.STRING)
     private UseStatus status;
 
+    // 생성자 메서드
+    public static UserCard createUserCard(User user, String cardNo, String cardName, String cvcNo) {
+        UserCard userCard = new UserCard();
+
+        userCard.setUser(user);
+        userCard.cardNo = cardNo;
+        userCard.cardName = cardName;
+        userCard.cvcNo = cvcNo;
+        userCard.status = UseStatus.USE;
+        userCard.expDate = LocalDateTime.now();
+
+        return userCard;
+    }
+
     // 연관 관계 메서드
     public void setUser(User user) {
         this.user = user;
