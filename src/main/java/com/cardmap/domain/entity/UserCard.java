@@ -36,4 +36,11 @@ public class UserCard {
 
     @Enumerated(EnumType.STRING)
     private UseStatus status;
+
+    // 연관 관계 메서드
+    public void setUser(User user) {
+        this.user = user;
+        user.getUserCardList().add(this);
+    }
+
 }
