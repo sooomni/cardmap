@@ -21,33 +21,36 @@ public class UserCardRepository {
     }
 
     // 사용자 카드 목록 조회
-    public List<UserCard> getUserCardList() {
+    public List<UserCard> getUserCardList(String userId) {
         return em.createQuery(
-                "select uc from UserCard uc"
-                , UserCard.class
-        ).getResultList();
+                        "select uc from UserCard uc" +
+                                " where userId = :userId"
+                        , UserCard.class
+                )
+                .setParameter("userId", userId)
+                .getResultList();
     }
 
     // 사용자 카드 사용 내역 조회
-    public List<CardUseHist> getCardUseHist(LocalDateTime start, LocalDateTime end) {
+    public List<CardUseHist> getCardUseHist(String cardNo, LocalDateTime startDate, LocalDateTime endDate) {
         return em.createQuery(
-                        "select h from CardUseHist h" +
-                                " where h.useDate >= :start" +
-                                " and h.useDate <= :end"
+                        "select h" +
+                                " from CardUseHist h" +
+                                " where h.cardNo = :cardNo" +
+                                " and h.useDate >= :startDate" +
+                                " and h.useDate <= :endDate"
                         , CardUseHist.class
                 )
-                .setParameter("start", start)
-                .setParameter("end", end)
+                .setParameter("cardNo", cardNo)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
                 .getResultList();
 
     }
 
     // 사용자 카드 등록
-    public String registUserCard(UserCard userCard) {
+    public void registUserCard(UserCard userCard) {
         em.persist(userCard);
-        UserCard saved = em.find(UserCard.class, userCard.getCardNo());
-
-        return saved.getCardNo();
     }
 
     // 사용자 카드 삭제
