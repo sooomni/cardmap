@@ -3,6 +3,7 @@ package com.CardMap.service;
 import com.CardMap.domain.entity.CardUseHist;
 import com.CardMap.domain.entity.User;
 import com.CardMap.domain.entity.UserCard;
+import com.CardMap.domain.enums.UseStatus;
 import com.CardMap.domain.repository.UserCardRepository;
 import com.CardMap.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -58,5 +59,18 @@ public class UserCardService {
      */
     public List<CardUseHist> getCardUseHist(String cardNo, LocalDateTime startDate, LocalDateTime endDate) {
         return userCardRepository.getCardUseHist(cardNo, startDate, endDate);
+    }
+
+    /**
+     * 사용자 카드 정보 수정 (카드 이름, 만료일, 사용 상태)
+     * @param cardNo 카드 번호
+     * @param cardName 카드 이름
+     * @param expDate 만료일
+     * @param useStatus 사용 상태
+     */
+    public void updateUserCard(String cardNo, String cardName, LocalDateTime expDate, UseStatus useStatus) {
+        UserCard userCard = userCardRepository.getUserCard(cardNo);
+
+        userCard.changeInfo(cardName, expDate, useStatus);
     }
 }

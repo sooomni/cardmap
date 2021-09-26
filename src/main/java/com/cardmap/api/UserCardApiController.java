@@ -2,6 +2,7 @@ package com.CardMap.api;
 
 import com.CardMap.domain.entity.CardUseHist;
 import com.CardMap.domain.entity.UserCard;
+import com.CardMap.domain.enums.UseStatus;
 import com.CardMap.domain.repository.UserCardRepository;
 import com.CardMap.service.UserCardService;
 import lombok.Data;
@@ -22,7 +23,7 @@ public class UserCardApiController {
 
     /**
      * 사용자 카드 상세 조회
-     * @param cardNo
+     * @param cardNo 카드 번호
      * @return 사용자 카드 정보
      */
     @GetMapping("/{cardNo}")
@@ -32,7 +33,7 @@ public class UserCardApiController {
 
     /**
      * 사용자 카드 목록 조회
-     * @param userId
+     * @param userId 사용자 아이디
      * @return 사용자 카드 목록
      */
     @GetMapping("/{userId}")
@@ -42,7 +43,7 @@ public class UserCardApiController {
 
     /**
      * 사용자 카드 등록
-     * @param request
+     * @param request 등록할 카드 정보
      * @return 등록 카드 정보
      */
     @PostMapping("")
@@ -52,8 +53,18 @@ public class UserCardApiController {
     }
 
     /**
+     * 사용자 카드 정보 수정
+     * @param cardNo 카드 번호
+     * @param request 수정할 카드 정보
+     */
+    @PutMapping("/{cardNo}")
+    public void updateUserCard(@PathVariable("cardNo") String cardNo, @RequestBody UpdateUserCardRequest request) {
+        userCardService.updateUserCard(cardNo, request.getCardName(), request.getExpDate(), request.getUseStatus());
+    }
+
+    /**
      * 사용자 카드 삭제
-     * @param cardNo
+     * @param cardNo 카드 번호
      */
     @DeleteMapping("/{cardNo}")
     public void removeUserCard(@PathVariable("cardNo") String cardNo) {
@@ -62,9 +73,9 @@ public class UserCardApiController {
 
     /**
      * 카드 사용 내역 조회
-     * @param cardNo
-     * @param startDate
-     * @param endDate
+     * @param cardNo 카드 번호
+     * @param startDate 시작 기준일
+     * @param endDate 종료 기준일
      * @return 카드 사용 내역 목록
      */
     @GetMapping("/history/{cardNo}")
@@ -86,5 +97,12 @@ public class UserCardApiController {
 
         @NotEmpty
         private String userId;
+    }
+
+    @Data
+    private static class UpdateUserCardRequest {
+        private String cardName;
+        private LocalDateTime expDate;
+        private UseStatus useStatus;
     }
 }

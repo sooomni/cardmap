@@ -1,6 +1,7 @@
 package com.CardMap.domain.entity;
 
 import com.CardMap.domain.enums.UseStatus;
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +39,7 @@ public class UserCard {
     private UseStatus status;
 
     // 생성자 메서드
-    public static UserCard createUserCard(User user, String cardNo, String cardName, String cvcNo) {
+    public static UserCard createUserCard(User user, String cardNo, String cardName, String cvcNo, LocalDateTime expDate) {
         UserCard userCard = new UserCard();
 
         userCard.setUser(user);
@@ -46,9 +47,24 @@ public class UserCard {
         userCard.cardName = cardName;
         userCard.cvcNo = cvcNo;
         userCard.status = UseStatus.USE;
-        userCard.expDate = LocalDateTime.now();
+        userCard.expDate = expDate;
 
         return userCard;
+    }
+
+    // 비즈니스 로직
+    public void changeInfo(String cardName, LocalDateTime expDate, UseStatus useStatus) {
+        if(StringUtils.isNotEmpty(cardName)) {
+            this.cardName = cardName;
+        }
+
+        if(expDate != null) {
+            this.expDate = expDate;
+        }
+
+        if(useStatus != null) {
+            this.status = useStatus;
+        }
     }
 
     // 연관 관계 메서드

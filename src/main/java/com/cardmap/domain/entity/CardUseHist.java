@@ -23,4 +23,5 @@ public class CardUseHist {
 
     private LocalDateTime useDate;
     private Long useAmt;
+
 }
