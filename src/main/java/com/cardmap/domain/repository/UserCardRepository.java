@@ -16,8 +16,8 @@ public class UserCardRepository {
     private final EntityManager em;
 
     // 사용자 카드 상세 조회
-    public UserCard getUserCard(String cardNo) {
-        return em.find(UserCard.class, cardNo);
+    public UserCard getUserCard(Long seq) {
+        return em.find(UserCard.class, seq);
     }
 
     // 사용자 카드 목록 조회
@@ -32,16 +32,16 @@ public class UserCardRepository {
     }
 
     // 사용자 카드 사용 내역 조회
-    public List<CardUseHist> getCardUseHist(String cardNo, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<CardUseHist> getCardUseHist(Long seq, LocalDateTime startDate, LocalDateTime endDate) {
         return em.createQuery(
                         "select h" +
                                 " from CardUseHist h" +
-                                " where h.cardNo = :cardNo" +
+                                " where h.cardNo = :userCardSeq" +
                                 " and h.useDate >= :startDate" +
                                 " and h.useDate <= :endDate"
                         , CardUseHist.class
                 )
-                .setParameter("cardNo", cardNo)
+                .setParameter("userCardSeq", seq)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
                 .getResultList();
@@ -54,8 +54,8 @@ public class UserCardRepository {
     }
 
     // 사용자 카드 삭제
-    public void removeUserCard(String cardNo) {
-        UserCard removeCard = em.find(UserCard.class, cardNo);
+    public void removeUserCard(Long seq) {
+        UserCard removeCard = em.find(UserCard.class, seq);
         em.remove(removeCard);
     }
 }
