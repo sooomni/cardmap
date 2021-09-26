@@ -1,4 +1,4 @@
-package com.CardMap.dto;
+package com.CardMap.dto.UserCard;
 
 import lombok.Data;
 

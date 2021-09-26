@@ -1,4 +1,4 @@
-package com.CardMap.dto;
+package com.CardMap.dto.UserCard;
 
 import com.CardMap.domain.enums.UseStatus;
 import lombok.Data;

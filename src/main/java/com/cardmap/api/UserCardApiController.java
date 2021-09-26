@@ -1,10 +1,7 @@
 package com.CardMap.api;
 
-import com.CardMap.domain.entity.CardUseHist;
-import com.CardMap.domain.entity.UserCard;
 import com.CardMap.domain.repository.UserCardRepository;
-import com.CardMap.dto.CreateUserCardRequest;
-import com.CardMap.dto.UpdateUserCardRequest;
+import com.CardMap.dto.UserCard.*;
 import com.CardMap.service.UserCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +24,8 @@ public class UserCardApiController {
      * @return 사용자 카드 정보
      */
     @GetMapping("/{userCardSeq}")
-    public UserCard getUserCard(@PathVariable("userCardSeq") Long seq) {
-        return userCardRepository.getUserCard(seq);
+    public UserCardDetailInfoDto getUserCard(@PathVariable("userCardSeq") Long seq) {
+        return userCardRepository.getUserCardInfo(seq);
     }
 
     /**
@@ -37,7 +34,7 @@ public class UserCardApiController {
      * @return 사용자 카드 목록
      */
     @GetMapping("/{userId}")
-    public List<UserCard> getUserCardList(@PathVariable("userId") String userId) {
+    public List<UserCardInfoDto> getUserCardList(@PathVariable("userId") String userId) {
         return userCardRepository.getUserCardList(userId);
     }
 
@@ -47,9 +44,8 @@ public class UserCardApiController {
      * @return 등록 카드 정보
      */
     @PostMapping("")
-    public UserCard registUserCard(@RequestBody @Valid CreateUserCardRequest request) {
-        Long userCardSeq = userCardService.registUserCard(request);
-        return userCardRepository.getUserCard(userCardSeq);
+    public Long registUserCard(@RequestBody @Valid CreateUserCardRequest request) {
+        return userCardService.registUserCard(request);
     }
 
     /**
@@ -79,7 +75,7 @@ public class UserCardApiController {
      * @return 카드 사용 내역 목록
      */
     @GetMapping("/history/{userCardSeq}")
-    public List<CardUseHist> getCardUseHist(
+    public List<CardUseHistDto> getCardUseHist(
             @PathVariable("userCardSeq") Long seq,
             @RequestParam("startDate") LocalDateTime startDate,
             @RequestParam("endDate") LocalDateTime endDate) {
