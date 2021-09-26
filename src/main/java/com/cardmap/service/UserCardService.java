@@ -5,15 +5,14 @@ import com.CardMap.domain.entity.User;
 import com.CardMap.domain.entity.UserCard;
 import com.CardMap.domain.repository.UserCardRepository;
 import com.CardMap.domain.repository.UserRepository;
-import com.CardMap.dto.UserCard.CardUseHistDto;
-import com.CardMap.dto.UserCard.CreateUserCardRequest;
-import com.CardMap.dto.UserCard.UpdateUserCardRequest;
+import com.CardMap.dto.UserCard.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +62,24 @@ public class UserCardService {
     }
 
     /**
+     * 사용자 카드 상세 조회
+     * @param seq 카드 일련 번호
+     * @return 카드 상세 정보
+     */
+    public UserCardDetailInfoDto getUserCardInfo(Long seq) {
+        return new UserCardDetailInfoDto(userCardRepository.getUserCard(seq));
+    }
+
+    /**
+     * 사용자 카드 목록 조회
+     * @param userId 사용자 아이디
+     * @return 카드 목록
+     */
+    public List<UserCardInfoDto> getUserCardList(String userId) {
+        return userCardRepository.getUserCardList(userId).stream().map(UserCardInfoDto::new).collect(Collectors.toList());
+    }
+
+    /**
      * 카드 사용 내역 조회
      * @param seq 카드 일련 번호
      * @param startDate 조회 시작일
@@ -70,7 +87,7 @@ public class UserCardService {
      * @return 카드 사용 내역 목록
      */
     public List<CardUseHistDto> getCardUseHist(Long seq, LocalDateTime startDate, LocalDateTime endDate) {
-        return userCardRepository.getCardUseHist(seq, startDate, endDate);
+        return userCardRepository.getCardUseHist(seq, startDate, endDate).stream().map(CardUseHistDto::new).collect(Collectors.toList());
     }
 
 }

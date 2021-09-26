@@ -25,7 +25,7 @@ public class UserCardApiController {
      */
     @GetMapping("/{userCardSeq}")
     public UserCardDetailInfoDto getUserCard(@PathVariable("userCardSeq") Long seq) {
-        return userCardRepository.getUserCardInfo(seq);
+        return userCardService.getUserCardInfo(seq);
     }
 
     /**
@@ -35,7 +35,7 @@ public class UserCardApiController {
      */
     @GetMapping("/{userId}")
     public List<UserCardInfoDto> getUserCardList(@PathVariable("userId") String userId) {
-        return userCardRepository.getUserCardList(userId);
+        return userCardService.getUserCardList(userId);
     }
 
     /**
