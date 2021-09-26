@@ -17,45 +17,49 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserCard {
 
-    @Id
-    private String cardNo;
+    @Id @GeneratedValue
+    @Column(name = "user_card_seq")
+    private Long seq;
 
-    private String cardName;
+    private String cardNo;
+    private String cardNickname;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "userCard", cascade = CascadeType.ALL)
-    private final List<CardInfo> cardInfoList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_info_seq")
+    private CardInfo cardInfo;
 
     @OneToMany(mappedBy = "userCard", cascade = CascadeType.ALL)
     private final List<CardUseHist> cardUseHistList = new ArrayList<>();
 
     private LocalDateTime expDate;
-    private String cvcNo;
+    private LocalDateTime regDate;
 
     @Enumerated(EnumType.STRING)
     private UseStatus status;
 
     // 생성자 메서드
-    public static UserCard createUserCard(User user, String cardNo, String cardName, String cvcNo, LocalDateTime expDate) {
+    public static UserCard createUserCard(User user, CardInfo cardInfo, String cardNo, String cardNickname, LocalDateTime expDate) {
         UserCard userCard = new UserCard();
 
         userCard.setUser(user);
+        userCard.setCardInfo(cardInfo);
         userCard.cardNo = cardNo;
-        userCard.cardName = cardName;
-        userCard.cvcNo = cvcNo;
+        userCard.cardNickname = cardNickname;
         userCard.status = UseStatus.USE;
         userCard.expDate = expDate;
+        userCard.regDate = LocalDateTime.now();
 
         return userCard;
     }
 
     // 비즈니스 로직
-    public void changeInfo(String cardName, LocalDateTime expDate, UseStatus useStatus) {
-        if(StringUtils.isNotEmpty(cardName)) {
-            this.cardName = cardName;
+    public void changeInfo(String cardNickname, LocalDateTime expDate, UseStatus useStatus) {
+        if(StringUtils.isNotEmpty(cardNickname)) {
+            this.cardNickname = cardNickname;
         }
 
         if(expDate != null) {
@@ -73,4 +77,8 @@ public class UserCard {
         user.getUserCardList().add(this);
     }
 
+    public void setCardInfo(CardInfo cardInfo) {
+        this.cardInfo = cardInfo;
+        // cardInfo.getUserCardList().add(this);
+    }
 }
