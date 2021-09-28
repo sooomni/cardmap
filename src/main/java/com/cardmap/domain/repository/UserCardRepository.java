@@ -32,16 +32,16 @@ public class UserCardRepository {
     }
 
     // 사용자 카드 사용 내역 조회
-    public List<CardUseHist> getCardUseHist(Long seq, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<CardUseHist> getCardUseHist(String cardNo, LocalDateTime startDate, LocalDateTime endDate) {
         return em.createQuery(
                         "select h" +
                                 " from CardUseHist h" +
-                                " where h.cardNo = :userCardSeq" +
+                                " where h.cardNo = :cardNo" +
                                 " and h.useDate >= :startDate" +
                                 " and h.useDate <= :endDate"
                         , CardUseHist.class
                 )
-                .setParameter("userCardSeq", seq)
+                .setParameter("cardNo", cardNo)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
                 .getResultList();

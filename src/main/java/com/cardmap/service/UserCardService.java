@@ -26,7 +26,7 @@ public class UserCardService {
     /**
      * 사용자 카드 등록
      * @param request 등록 카드 정보
-     * @return 등록 카드 번호
+     * @return 등록 카드 일련 번호
      */
     @Transactional
     public Long registUserCard(CreateUserCardRequest request) {
@@ -81,13 +81,13 @@ public class UserCardService {
 
     /**
      * 카드 사용 내역 조회
-     * @param seq 카드 일련 번호
+     * @param cardNo 카드 번호
      * @param startDate 조회 시작일
      * @param endDate 조회 종료일
      * @return 카드 사용 내역 목록
      */
-    public List<CardUseHistDto> getCardUseHist(Long seq, LocalDateTime startDate, LocalDateTime endDate) {
-        return userCardRepository.getCardUseHist(seq, startDate, endDate).stream().map(CardUseHistDto::new).collect(Collectors.toList());
+    public List<CardUseHistDto> getCardUseHist(String cardNo, LocalDateTime startDate, LocalDateTime endDate) {
+        return userCardRepository.getCardUseHist(cardNo, startDate, endDate).stream().map(CardUseHistDto::new).collect(Collectors.toList());
     }
 
 }
