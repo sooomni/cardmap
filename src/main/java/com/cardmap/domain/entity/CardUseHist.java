@@ -18,7 +18,7 @@ public class CardUseHist {
     private Long cardUseHistSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cardUseHist")
+    @JoinColumn(name = "user_card_seq")
     private UserCard userCard;
 
     private LocalDateTime useDate;
