@@ -1,4 +1,5 @@
 package com.CardMap.domain.enums;
 
-public enum TrafficStatus {
+public enum CreditStatus {
+    Y,N
 }
