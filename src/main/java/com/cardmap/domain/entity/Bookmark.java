@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Table(name = "bookmark")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BookMark {
+public class Bookmark {
 
     @Id
     @Column(name="place_id")
@@ -18,5 +18,5 @@ public class BookMark {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
-    private User user;
+    private String userId;
 }

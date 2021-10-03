@@ -1,6 +1,8 @@
-package com.CardMap.domain.entity;
+package com.cardmap.domain.entity;
 
 import com.CardMap.domain.enums.UserStatus;
+import com.CardMap.domain.entity.Bookmark;
+import com.CardMap.domain.entity.UserCard;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +28,7 @@ public class User{
     private String userName;
 
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
-    private final List<BookMark> bookMarkList = new ArrayList<>();
+    private final List<Bookmark> bookmarkList = new ArrayList<>();
 
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
     private final List<UserCard> userCardList = new ArrayList<>();
