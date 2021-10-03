@@ -1,6 +1,6 @@
-package com.cardMap.dto.UserCard;
+package com.cardmap.dto.UserCard;
 
-import com.cardMap.domain.entity.CardUseHist;
+import com.cardmap.domain.entity.CardUseHist;
 import lombok.Data;
 
 import java.time.LocalDateTime;

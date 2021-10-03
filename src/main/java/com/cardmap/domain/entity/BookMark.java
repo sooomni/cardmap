@@ -1,4 +1,4 @@
-package com.cardMap.domain.entity;
+package com.cardmap.domain.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

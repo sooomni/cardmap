@@ -1,4 +1,4 @@
-package com.cardMap.service;
+package com.cardmap.service;
 
 public class UserService {
 }

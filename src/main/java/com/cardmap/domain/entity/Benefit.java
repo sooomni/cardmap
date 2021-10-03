@@ -1,7 +1,7 @@
-package com.cardMap.domain.entity;
+package com.cardmap.domain.entity;
 
-import com.cardMap.domain.enums.BenefitCategory;
-import com.cardMap.domain.enums.BenefitType;
+import com.cardmap.domain.enums.BenefitCategory;
+import com.cardmap.domain.enums.BenefitType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

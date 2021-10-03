@@ -1,4 +1,4 @@
-package com.cardMap.domain.enums;
+package com.cardmap.domain.enums;
 
 public enum UserStatus {
 }

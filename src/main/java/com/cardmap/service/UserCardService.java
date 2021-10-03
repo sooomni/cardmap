@@ -1,11 +1,11 @@
-package com.cardMap.service;
+package com.cardmap.service;
 
-import com.cardMap.domain.entity.CardInfo;
-import com.cardMap.domain.entity.User;
-import com.cardMap.domain.entity.UserCard;
-import com.cardMap.domain.repository.UserCardRepository;
-import com.cardMap.domain.repository.UserRepository;
-import com.cardMap.dto.UserCard.*;
+import com.cardmap.domain.entity.CardInfo;
+import com.cardmap.domain.entity.User;
+import com.cardmap.domain.entity.UserCard;
+import com.cardmap.domain.repository.UserCardRepository;
+import com.cardmap.domain.repository.UserRepository;
+import com.cardmap.dto.UserCard.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

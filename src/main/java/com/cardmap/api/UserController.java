@@ -1,4 +1,4 @@
-package com.cardMap.api;
+package com.cardmap.api;
 
 public class UserController {
 }
