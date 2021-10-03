@@ -1,10 +1,11 @@
 package com.cardmap.domain.entity;
 
+import com.cardmap.domain.enums.BenefitCategory;
+import com.cardmap.domain.enums.BenefitType;
 import com.cardmap.domain.enums.CreditStatus;
 import com.cardmap.domain.enums.TrafficStatus;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.cardmap.dto.CardVO;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,23 +15,26 @@ import java.util.List;
 @Getter
 @Table(name = "card_info")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder(builderMethodName = "CardInfoBuilder")
 public class CardInfo {
-
     @Id
     @GeneratedValue
     private Long cardInfoSeq;
 
-    private String CardName;
+    private String cardName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserCard userCard;
+    //@OneToMany(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "user_id")
+    //private UserCard userCard;
+    @OneToMany(mappedBy = "cardInfo", cascade = CascadeType.ALL)
+    private List<UserCard> userCardList = new ArrayList<>();
 
     @OneToMany(mappedBy = "cardInfo", cascade = CascadeType.ALL)
-    private final List<Benefit> benefitList = new ArrayList<>();
+    private List<Benefit> benefitList = new ArrayList<>();
 
     @OneToMany(mappedBy = "cardInfo", cascade = CascadeType.ALL)
-    private final List<Benefit> annualFeeList = new ArrayList<>();
+    private List<AnnualFee> annualFeeList = new ArrayList<>();
 
     private String companyName;
 
@@ -40,4 +44,22 @@ public class CardInfo {
     @Enumerated(EnumType.STRING)
     private CreditStatus creditYn;
 
+    //@Enumerated(EnumType.STRING)
+    private List<BenefitCategory> benefitCategoryList;
+
+    @Enumerated(EnumType.STRING)
+    private BenefitType benefittype;
+
+    public static CardInfoBuilder builder(CardVO cardVo) {
+        return CardInfoBuilder()
+                .cardInfoSeq(cardVo.getCardInfoSeq())
+                .cardName(cardVo.getCardName())
+                .benefitList(cardVo.getBenefitList())
+                .annualFeeList(cardVo.getAnnualFeeList())
+                .companyName(cardVo.getCompanyName())
+                .trafficYn(cardVo.getTrafficYn())
+                .creditYn(cardVo.getCreditYn())
+                .benefitCategoryList(cardVo.getBenefitCategoryList())
+                .benefittype(cardVo.getBenefittype());
+    }
 }
