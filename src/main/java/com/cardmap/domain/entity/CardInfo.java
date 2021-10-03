@@ -1,7 +1,7 @@
-package com.CardMap.domain.entity;
+package com.cardMap.domain.entity;
 
-import com.CardMap.domain.enums.CreditStatus;
-import com.CardMap.domain.enums.TrafficStatus;
+import com.cardMap.domain.enums.CreditStatus;
+import com.cardMap.domain.enums.TrafficStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

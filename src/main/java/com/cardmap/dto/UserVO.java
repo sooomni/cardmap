@@ -1,4 +1,4 @@
-package com.CardMap.dto;
+package com.cardMap.dto;
 
 public class UserVO {
 }

@@ -1,4 +1,4 @@
-package com.CardMap.domain.repository;
+package com.cardMap.domain.repository;
 
 public class UserRepository {
 }

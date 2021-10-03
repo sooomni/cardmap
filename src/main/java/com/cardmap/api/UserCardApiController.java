@@ -1,8 +1,8 @@
-package com.CardMap.api;
+package com.cardMap.api;
 
-import com.CardMap.domain.repository.UserCardRepository;
-import com.CardMap.dto.UserCard.*;
-import com.CardMap.service.UserCardService;
+import com.cardMap.domain.repository.UserCardRepository;
+import com.cardMap.dto.UserCard.*;
+import com.cardMap.service.UserCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

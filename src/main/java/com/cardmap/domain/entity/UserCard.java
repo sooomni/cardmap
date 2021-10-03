@@ -1,6 +1,6 @@
-package com.CardMap.domain.entity;
+package com.cardMap.domain.entity;
 
-import com.CardMap.domain.enums.UseStatus;
+import com.cardMap.domain.enums.UseStatus;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.AccessLevel;
 import lombok.Getter;

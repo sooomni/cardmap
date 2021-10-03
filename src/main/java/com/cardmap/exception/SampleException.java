@@ -1,4 +1,4 @@
-package com.CardMap.exception;
+package com.cardMap.exception;
 
 public class SampleException {
 }

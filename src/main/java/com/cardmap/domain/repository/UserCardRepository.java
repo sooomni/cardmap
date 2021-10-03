@@ -1,7 +1,7 @@
-package com.CardMap.domain.repository;
+package com.cardMap.domain.repository;
 
-import com.CardMap.domain.entity.CardUseHist;
-import com.CardMap.domain.entity.UserCard;
+import com.cardMap.domain.entity.CardUseHist;
+import com.cardMap.domain.entity.UserCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
-package com.CardMap.dto.UserCard;
+package com.cardMap.dto.UserCard;
 
-import com.CardMap.domain.entity.UserCard;
+import com.cardMap.domain.entity.UserCard;
 import lombok.Data;
 
 @Data
