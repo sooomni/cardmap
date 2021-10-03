@@ -1,7 +1,8 @@
 package com.cardmap.dto.bookmark;
 
+import com.cardmap.domain.entity.Bookmark;
 import lombok.Data;
-import com.CardMap.domain.entity.Bookmark;
+
 
 @Data
 public class BookmarkDto {

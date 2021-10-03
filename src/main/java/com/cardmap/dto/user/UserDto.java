@@ -1,5 +1,9 @@
 package com.cardmap.dto.user;
 
+import com.cardmap.domain.entity.Bookmark;
+import com.cardmap.domain.entity.User;
+import com.cardmap.domain.entity.UserCard;
+import com.cardmap.domain.enums.UserStatus;
 import com.cardmap.dto.bookmark.BookmarkDto;
 import lombok.Data;
 
@@ -7,10 +11,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cardmap.domain.entity.User;
-import com.CardMap.domain.enums.UserStatus;
-import com.CardMap.domain.entity.Bookmark;
-import com.CardMap.domain.entity.UserCard;
 
 @Data
 public class UserDto {

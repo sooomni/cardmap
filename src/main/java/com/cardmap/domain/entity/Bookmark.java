@@ -1,4 +1,4 @@
-package com.CardMap.domain.entity;
+package com.cardmap.domain.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,5 +18,5 @@ public class Bookmark {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
-    private String userId;
+    private User user;
 }

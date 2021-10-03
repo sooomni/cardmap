@@ -1,8 +1,6 @@
 package com.cardmap.domain.entity;
 
-import com.CardMap.domain.enums.UserStatus;
-import com.CardMap.domain.entity.Bookmark;
-import com.CardMap.domain.entity.UserCard;
+import com.cardmap.domain.enums.UserStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
