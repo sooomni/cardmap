@@ -1,11 +1,11 @@
-package com.CardMap.dto;
+package com.cardmap.dto;
 
-import com.CardMap.domain.entity.AnnualFee;
-import com.CardMap.domain.entity.Benefit;
-import com.CardMap.domain.enums.BenefitCategory;
-import com.CardMap.domain.enums.BenefitType;
-import com.CardMap.domain.enums.CreditStatus;
-import com.CardMap.domain.enums.TrafficStatus;
+import com.cardmap.domain.entity.AnnualFee;
+import com.cardmap.domain.entity.Benefit;
+import com.cardmap.domain.enums.BenefitCategory;
+import com.cardmap.domain.enums.BenefitType;
+import com.cardmap.domain.enums.CreditStatus;
+import com.cardmap.domain.enums.TrafficStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

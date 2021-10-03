@@ -1,10 +1,10 @@
-package com.CardMap.domain.entity;
+package com.cardmap.domain.entity;
 
-import com.CardMap.domain.enums.BenefitCategory;
-import com.CardMap.domain.enums.BenefitType;
-import com.CardMap.domain.enums.CreditStatus;
-import com.CardMap.domain.enums.TrafficStatus;
-import com.CardMap.dto.CardVO;
+import com.cardmap.domain.enums.BenefitCategory;
+import com.cardmap.domain.enums.BenefitType;
+import com.cardmap.domain.enums.CreditStatus;
+import com.cardmap.domain.enums.TrafficStatus;
+import com.cardmap.dto.CardVO;
 import lombok.*;
 
 import javax.persistence.*;

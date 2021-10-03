@@ -1,4 +1,4 @@
-package com.CardMap;
+package com.cardmap;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

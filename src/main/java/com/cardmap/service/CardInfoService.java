@@ -1,7 +1,7 @@
-package com.CardMap.service;
+package com.cardmap.service;
 
-import com.CardMap.domain.entity.CardInfo;
-import com.CardMap.domain.repository.CardInfoRepository;
+import com.cardmap.domain.entity.CardInfo;
+import com.cardmap.domain.repository.CardInfoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

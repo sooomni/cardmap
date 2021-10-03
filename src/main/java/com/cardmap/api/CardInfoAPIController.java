@@ -1,17 +1,8 @@
-package com.CardMap.api;
-import com.CardMap.domain.entity.AnnualFee;
-import com.CardMap.domain.entity.Benefit;
-import com.CardMap.domain.entity.CardInfo;
-import com.CardMap.domain.enums.BenefitCategory;
-import com.CardMap.domain.enums.BenefitType;
-import com.CardMap.domain.enums.CreditStatus;
-import com.CardMap.domain.enums.TrafficStatus;
-import com.CardMap.dto.CardVO;
-import com.CardMap.service.CardInfoService;
-import lombok.RequiredArgsConstructor;
+package com.cardmap.api;
+import com.cardmap.domain.entity.CardInfo;
+import com.cardmap.dto.CardVO;
+import com.cardmap.service.CardInfoService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/cardinfo")

@@ -1,23 +1,22 @@
-package com.CardMap.CardInfoTest;
+package com.cardmap.CardInfoTest;
 
-import com.CardMap.domain.entity.AnnualFee;
-import com.CardMap.domain.entity.Benefit;
-import com.CardMap.domain.entity.CardInfo;
-import com.CardMap.domain.enums.BenefitCategory;
-import com.CardMap.domain.repository.CardInfoRepository;
-import com.CardMap.dto.CardVO;
+import com.cardmap.domain.entity.AnnualFee;
+import com.cardmap.domain.entity.Benefit;
+import com.cardmap.domain.entity.CardInfo;
+import com.cardmap.domain.enums.BenefitCategory;
+import com.cardmap.domain.repository.CardInfoRepository;
+import com.cardmap.dto.CardVO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.rmi.NoSuchObjectException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.CardMap.domain.enums.BenefitType.*;
+import static com.cardmap.domain.enums.BenefitType.*;
 import static org.springframework.data.util.Optionals.ifPresentOrElse;
 
 @SpringBootTest
