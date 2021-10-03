@@ -1,7 +1,6 @@
 package com.cardmap.service;
 
 import com.cardmap.domain.entity.CardInfo;
-import com.cardmap.domain.entity.User;
 import com.cardmap.domain.entity.UserCard;
 import com.cardmap.domain.repository.UserCardRepository;
 import com.cardmap.domain.repository.UserRepository;
