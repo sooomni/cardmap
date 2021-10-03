@@ -1,5 +1,5 @@
-package com.CardMap.domain.enums;
+package com.cardmap.domain.enums;
 
 public enum BenefitType {
-    A, B
+    Card, Point, Multi
 }

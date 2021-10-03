@@ -1,4 +1,5 @@
-package com.CardMap.domain.enums;
+package com.cardmap.domain.enums;
 
 public enum TrafficStatus {
+    Y,N
 }
