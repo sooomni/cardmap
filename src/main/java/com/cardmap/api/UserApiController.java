@@ -1,8 +1,9 @@
 package com.cardmap.api;
 
-import com.cardmap.dto.bookmark.BookmarkDto;
-import com.cardmap.dto.bookmark.RegistBookmarkRequest;
+import com.cardmap.dto.user.BookmarkDto;
+import com.cardmap.dto.user.RegistBookmarkRequest;
 import com.cardmap.dto.user.*;
+import com.cardmap.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,6 @@ import java.util.List;
 public class UserApiController {
 
     private final UserService userService;
-    private final BookmarkService bookmarkService;
 
     /**
      * 회원 가입
@@ -84,7 +84,7 @@ public class UserApiController {
      */
     @PostMapping("/users/{userId}/bookmarks")
     public void registBookmark(@RequestBody @Valid RegistBookmarkRequest request){
-        bookmarkService.registBookmark(request);
+        userService.registBookmark(request);
         return;
     }
 
@@ -97,7 +97,7 @@ public class UserApiController {
     public void deleteBookmark(
             @PathVariable("userId") String userId,
             @PathVariable("plcaeId") String placeId){
-        bookmarkService.deleteBookmark(userId,placeId);
+        userService.deleteBookmark(userId,placeId);
         return;
     }
 
@@ -107,6 +107,6 @@ public class UserApiController {
      */
     @GetMapping("/users/{userId}/bookmarks")
     public List<BookmarkDto> getBookmarkList(@PathVariable("userId") String userId){
-        return bookmarkService.getBookmarks(userId);
+        return userService.getBookmarks(userId);
     }
 }

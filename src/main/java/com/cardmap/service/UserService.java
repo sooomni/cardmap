@@ -2,11 +2,14 @@ package com.cardmap.service;
 
 import com.cardmap.domain.entity.User;
 import com.cardmap.domain.repository.UserRepository;
+import com.cardmap.dto.user.BookmarkDto;
+import com.cardmap.dto.user.RegistBookmarkRequest;
 import com.cardmap.dto.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -43,5 +46,17 @@ public class UserService {
 
     public void findUserPassword(FindUserPasswordRequest request) {
         userRepository.findUserPassword(request);
+    }
+
+    public void registBookmark(RegistBookmarkRequest request) {
+
+    }
+
+    public void deleteBookmark(String userId, String placeId) {
+
+    }
+
+    public List<BookmarkDto> getBookmarks(String userId) {
+        return null;
     }
 }

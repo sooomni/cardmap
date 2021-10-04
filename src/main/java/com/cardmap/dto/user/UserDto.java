@@ -4,7 +4,6 @@ import com.cardmap.domain.entity.Bookmark;
 import com.cardmap.domain.entity.User;
 import com.cardmap.domain.entity.UserCard;
 import com.cardmap.domain.enums.UserStatus;
-import com.cardmap.dto.bookmark.BookmarkDto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
