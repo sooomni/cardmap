@@ -1,17 +1,47 @@
 package com.cardmap.service;
 
+import com.cardmap.domain.entity.User;
+import com.cardmap.domain.repository.UserRepository;
 import com.cardmap.dto.user.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-public interface UserService {
-    public UserDto getUser(String userId);
+import javax.transaction.Transactional;
 
-    public void registUser(RegistUserRequest request);
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class UserService {
 
-    public void updateUser(UpdateUserRequest request);
+    private final UserRepository userRepository;
 
-    void deleteUser(DeleteUserRequest request);
+    public UserDto getUser(String userId) {
+        UserDto user = new UserDto(userRepository.getUser(userId));
+        return user;
+    }
 
-    void findUserId(FindUserIdRequest request);
+    public void registUser(RegistUserRequest request) {
+        userRepository.registUser(request);
+        return;
+    }
 
-    void findUserPassword(FindUserPasswordRequest request);
+    public void updateUser(UpdateUserRequest request) {
+        User user = userRepository.getUser(request.getId());
+        /**
+         * 변화된 정보 삽입( null 체크 필요)
+         */
+        userRepository.registUser(user);
+    }
+
+    public void deleteUser(DeleteUserRequest request) {
+        userRepository.deleteUser(request);
+    }
+
+    public void findUserId(FindUserIdRequest request) {
+        userRepository.findUserId(request);
+    }
+
+    public void findUserPassword(FindUserPasswordRequest request) {
+        userRepository.findUserPassword(request);
+    }
 }

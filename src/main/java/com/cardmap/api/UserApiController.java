@@ -3,8 +3,6 @@ package com.cardmap.api;
 import com.cardmap.dto.bookmark.BookmarkDto;
 import com.cardmap.dto.bookmark.RegistBookmarkRequest;
 import com.cardmap.dto.user.*;
-import com.cardmap.service.BookmarkService;
-import com.cardmap.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

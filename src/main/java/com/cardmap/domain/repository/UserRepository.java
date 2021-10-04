@@ -50,6 +50,6 @@ public class UserRepository {
     }
 
     public User findUserPassword(FindUserPasswordRequest request){
-        return em.find(User.class, request.getUserName())
+        return em.find(User.class, request.getUserName());
     }
 }
