@@ -31,11 +31,11 @@ public class UserCardService {
     @Transactional
     public Long registUserCard(CreateUserCardRequest request) {
 
-        // TODO user find method, cardInfo find method
-        User user = userRepository.findOne(userId);
-        CardInfo cardInfo = cardInfoRepository.findOne(request.getCardInfoSeq());
+        // TODO user find method, cardInfo find method - Spring Data JPA에서 사용 가능
+        // User user = userRepository.findOne(request.getUserId());
+        // CardInfo cardInfo = cardInfoRepository.findOne(request.getCardInfoSeq());
 
-        UserCard userCard = UserCard.createUserCard(user, cardInfo, request.getCardNo(), request.getCardNickname(), request.getExpDate());
+        UserCard userCard = UserCard.createUserCard(user, cardInfo, request);
         userCardRepository.registUserCard(userCard);
 
         return userCard.getSeq();

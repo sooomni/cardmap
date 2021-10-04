@@ -1,6 +1,7 @@
 package com.cardmap.domain.entity;
 
 import com.cardmap.domain.enums.UseStatus;
+import com.cardmap.dto.usercard.CreateUserCardRequest;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -42,15 +43,15 @@ public class UserCard {
     private UseStatus status;
 
     // 생성자 메서드
-    public static UserCard createUserCard(User user, CardInfo cardInfo, String cardNo, String cardNickname, LocalDateTime expDate) {
+    public static UserCard createUserCard(User user, CardInfo cardInfo, CreateUserCardRequest request) {
         UserCard userCard = new UserCard();
 
         userCard.setUser(user);
         userCard.setCardInfo(cardInfo);
-        userCard.cardNo = cardNo;
-        userCard.cardNickname = cardNickname;
+        userCard.cardNo = request.getCardNo();
+        userCard.cardNickname = request.getCardNickname();
         userCard.status = UseStatus.USE;
-        userCard.expDate = expDate;
+        userCard.expDate = request.getExpDate();
         userCard.regDate = LocalDateTime.now();
 
         return userCard;
@@ -72,13 +73,13 @@ public class UserCard {
     }
 
     // 연관 관계 메서드
-    public void setUser(User user) {
+    private void setUser(User user) {
         this.user = user;
         user.getUserCardList().add(this);
     }
 
-    public void setCardInfo(CardInfo cardInfo) {
+    private void setCardInfo(CardInfo cardInfo) {
         this.cardInfo = cardInfo;
-        // cardInfo.getUserCardList().add(this);
+        cardInfo.getUserCardList().add(this);
     }
 }
