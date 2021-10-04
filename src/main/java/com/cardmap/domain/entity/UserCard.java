@@ -1,11 +1,14 @@
 package com.cardmap.domain.entity;
 
+import com.cardmap.domain.embedded.ModInfo;
+import com.cardmap.domain.embedded.RegInfo;
 import com.cardmap.domain.enums.UseStatus;
 import com.cardmap.dto.usercard.CreateUserCardRequest;
-import io.micrometer.core.instrument.util.StringUtils;
+import com.cardmap.dto.usercard.UpdateUserCardRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -37,7 +40,12 @@ public class UserCard {
     private final List<CardUseHist> cardUseHistList = new ArrayList<>();
 
     private LocalDateTime expDate;
-    private LocalDateTime regDate;
+
+    @Embedded
+    private RegInfo regInfo;
+
+    @Embedded
+    private ModInfo modInfo;
 
     @Enumerated(EnumType.STRING)
     private UseStatus status;
@@ -52,24 +60,28 @@ public class UserCard {
         userCard.cardNickname = request.getCardNickname();
         userCard.status = UseStatus.USE;
         userCard.expDate = request.getExpDate();
-        userCard.regDate = LocalDateTime.now();
+        userCard.regInfo = new RegInfo(user.getId(), request.getUserIp(), LocalDateTime.now());
+        userCard.modInfo = new ModInfo(user.getId(), request.getUserIp(), LocalDateTime.now());
 
         return userCard;
     }
 
     // 비즈니스 로직
-    public void changeInfo(String cardNickname, LocalDateTime expDate, UseStatus useStatus) {
-        if(StringUtils.isNotEmpty(cardNickname)) {
-            this.cardNickname = cardNickname;
+    public void changeInfo(UpdateUserCardRequest request) {
+
+        if(StringUtils.hasText(request.getCardNickname())) {
+            this.cardNickname = request.getCardNickname();
         }
 
-        if(expDate != null) {
-            this.expDate = expDate;
+        if(request.getExpDate() != null) {
+            this.expDate = request.getExpDate();
         }
 
-        if(useStatus != null) {
-            this.status = useStatus;
+        if(request.getUseStatus() != null) {
+            this.status = request.getUseStatus();
         }
+
+        this.modInfo.updateInfo(request.getUserId(), request.getUserIp(), LocalDateTime.now());
     }
 
     // 연관 관계 메서드

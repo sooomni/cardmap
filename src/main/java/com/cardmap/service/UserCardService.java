@@ -49,7 +49,7 @@ public class UserCardService {
     @Transactional
     public void updateUserCard(Long seq, UpdateUserCardRequest request) {
         UserCard userCard = userCardRepository.getUserCard(seq);
-        userCard.changeInfo(request.getCardNickname(), request.getExpDate(), request.getUseStatus());
+        userCard.changeInfo(request);
     }
 
     /**

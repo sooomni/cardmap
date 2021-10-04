@@ -3,9 +3,11 @@ package com.cardmap.api;
 import com.cardmap.domain.repository.UserCardRepository;
 import com.cardmap.dto.usercard.*;
 import com.cardmap.service.UserCardService;
+import com.cardmap.util.AccessInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,7 +26,7 @@ public class UserCardApiController {
      * @return 사용자 카드 정보
      */
     @GetMapping("/{userCardSeq}")
-    public UserCardDetailInfoDto getUserCard(@PathVariable("userCardSeq") Long seq) {
+    public UserCardDetailInfoDto getUserCard (@PathVariable("userCardSeq") Long seq) {
         return userCardService.getUserCardInfo(seq);
     }
 
@@ -34,17 +36,23 @@ public class UserCardApiController {
      * @return 사용자 카드 목록
      */
     @GetMapping("/{userId}")
-    public List<UserCardInfoDto> getUserCardList(@PathVariable("userId") String userId) {
+    public List<UserCardInfoDto> getUserCardList (@PathVariable("userId") String userId) {
         return userCardService.getUserCardList(userId);
     }
 
     /**
      * 사용자 카드 등록
      * @param request 등록할 카드 정보
+     * @param servletRequest 사용자 IP 확인용 파라미터
      * @return 등록 카드 정보
      */
     @PostMapping("")
-    public Long registUserCard(@RequestBody @Valid CreateUserCardRequest request) {
+    public Long registUserCard (
+            @RequestBody @Valid CreateUserCardRequest request,
+            HttpServletRequest servletRequest) {
+        // 사용자 IP 주소 확인
+        String userIp = AccessInfo.getUserRemoteAddress(servletRequest);
+        request.setUserIp(userIp);
         return userCardService.registUserCard(request);
     }
 
@@ -52,9 +60,16 @@ public class UserCardApiController {
      * 사용자 카드 정보 수정
      * @param seq 카드 일련 번호
      * @param request 수정할 카드 정보
+     * @param servletRequest 사용자 IP 확인용 파라미터
      */
     @PutMapping("/{userCardSeq}")
-    public void updateUserCard(@PathVariable("userCardSeq") Long seq, @RequestBody UpdateUserCardRequest request) {
+    public void updateUserCard (
+            @PathVariable("userCardSeq") Long seq,
+            @RequestBody UpdateUserCardRequest request,
+            HttpServletRequest servletRequest) {
+        // 사용자 IP 주소 확인
+        String userIp = AccessInfo.getUserRemoteAddress(servletRequest);
+        request.setUserIp(userIp);
         userCardService.updateUserCard(seq, request);
     }
 
@@ -63,7 +78,7 @@ public class UserCardApiController {
      * @param seq 카드 일련 번호
      */
     @DeleteMapping("/{userCardSeq}")
-    public void removeUserCard(@PathVariable("userCardSeq") Long seq) {
+    public void removeUserCard (@PathVariable("userCardSeq") Long seq) {
         userCardService.removeUserCard(seq);
     }
 
@@ -75,7 +90,7 @@ public class UserCardApiController {
      * @return 카드 사용 내역 목록
      */
     @GetMapping("/history/{cardNo}")
-    public List<CardUseHistDto> getCardUseHist(
+    public List<CardUseHistDto> getCardUseHist (
             @PathVariable("cardNo") String cardNo,
             @RequestParam("startDate") LocalDateTime startDate,
             @RequestParam("endDate") LocalDateTime endDate) {

@@ -19,6 +19,8 @@ public class CreateUserCardRequest {
     @NotEmpty
     private String userId;
 
+    private String userIp;
+
     @NotEmpty
     private LocalDateTime expDate;
 }
