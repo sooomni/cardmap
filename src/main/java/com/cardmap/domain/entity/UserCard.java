@@ -1,7 +1,5 @@
 package com.cardmap.domain.entity;
 
-import com.cardmap.domain.embedded.ModInfo;
-import com.cardmap.domain.embedded.RegInfo;
 import com.cardmap.domain.enums.UseStatus;
 import com.cardmap.dto.usercard.CreateUserCardRequest;
 import com.cardmap.dto.usercard.UpdateUserCardRequest;
@@ -19,7 +17,7 @@ import java.util.List;
 @Getter
 @Table(name = "user_card")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserCard {
+public class UserCard extends BaseInfo {
 
     @Id @GeneratedValue
     @Column(name = "user_card_seq")
@@ -41,12 +39,6 @@ public class UserCard {
 
     private LocalDateTime expDate;
 
-    @Embedded
-    private RegInfo regInfo;
-
-    @Embedded
-    private ModInfo modInfo;
-
     @Enumerated(EnumType.STRING)
     private UseStatus status;
 
@@ -60,8 +52,6 @@ public class UserCard {
         userCard.cardNickname = request.getCardNickname();
         userCard.status = UseStatus.USE;
         userCard.expDate = request.getExpDate();
-        userCard.regInfo = new RegInfo(user.getId(), request.getUserIp(), LocalDateTime.now());
-        userCard.modInfo = new ModInfo(user.getId(), request.getUserIp(), LocalDateTime.now());
 
         return userCard;
     }
@@ -69,19 +59,17 @@ public class UserCard {
     // 비즈니스 로직
     public void changeInfo(UpdateUserCardRequest request) {
 
-        if(StringUtils.hasText(request.getCardNickname())) {
+        if (StringUtils.hasText(request.getCardNickname())) {
             this.cardNickname = request.getCardNickname();
         }
 
-        if(request.getExpDate() != null) {
+        if (request.getExpDate() != null) {
             this.expDate = request.getExpDate();
         }
 
-        if(request.getUseStatus() != null) {
+        if (request.getUseStatus() != null) {
             this.status = request.getUseStatus();
         }
-
-        this.modInfo.updateInfo(request.getUserId(), request.getUserIp(), LocalDateTime.now());
     }
 
     // 연관 관계 메서드

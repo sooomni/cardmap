@@ -1,6 +1,6 @@
 package com.cardmap.api;
 
-import com.cardmap.domain.repository.UserCardRepository;
+import com.cardmap.domain.repository.UserCardQueryRepository;
 import com.cardmap.dto.usercard.*;
 import com.cardmap.service.UserCardService;
 import com.cardmap.util.AccessInfo;
@@ -18,7 +18,7 @@ import java.util.List;
 public class UserCardApiController {
 
     private final UserCardService userCardService;
-    private final UserCardRepository userCardRepository;
+    private final UserCardQueryRepository userCardQueryRepository;
 
     /**
      * 사용자 카드 상세 조회
@@ -51,8 +51,8 @@ public class UserCardApiController {
             @RequestBody @Valid CreateUserCardRequest request,
             HttpServletRequest servletRequest) {
         // 사용자 IP 주소 확인
-        String userIp = AccessInfo.getUserRemoteAddress(servletRequest);
-        request.setUserIp(userIp);
+//        String userIp = AccessInfo.getUserRemoteAddress(servletRequest);
+//        request.setUserIp(userIp);
         return userCardService.registUserCard(request);
     }
 
@@ -68,8 +68,8 @@ public class UserCardApiController {
             @RequestBody UpdateUserCardRequest request,
             HttpServletRequest servletRequest) {
         // 사용자 IP 주소 확인
-        String userIp = AccessInfo.getUserRemoteAddress(servletRequest);
-        request.setUserIp(userIp);
+//        String userIp = AccessInfo.getUserRemoteAddress(servletRequest);
+//        request.setUserIp(userIp);
         userCardService.updateUserCard(seq, request);
     }
 

@@ -1,8 +1,10 @@
 package com.cardmap.service;
 
 import com.cardmap.domain.entity.CardInfo;
+import com.cardmap.domain.entity.User;
 import com.cardmap.domain.entity.UserCard;
 import com.cardmap.domain.repository.CardInfoRepository;
+import com.cardmap.domain.repository.UserCardQueryRepository;
 import com.cardmap.domain.repository.UserCardRepository;
 import com.cardmap.domain.repository.UserRepository;
 import com.cardmap.dto.usercard.*;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class UserCardService {
 
     private final UserCardRepository userCardRepository;
+    private final UserCardQueryRepository userCardQueryRepository;
     private final UserRepository userRepository;
     private final CardInfoRepository cardInfoRepository;
 
@@ -33,10 +36,10 @@ public class UserCardService {
 
         // TODO user find method, cardInfo find method - Spring Data JPA에서 사용 가능
         // User user = userRepository.findOne(request.getUserId());
-        // CardInfo cardInfo = cardInfoRepository.findOne(request.getCardInfoSeq());
+        CardInfo cardInfo = cardInfoRepository.findByCardInfoSeq(request.getCardInfoSeq()).get();
 
-        UserCard userCard = UserCard.createUserCard(user, cardInfo, request);
-        userCardRepository.registUserCard(userCard);
+        UserCard userCard = UserCard.createUserCard(null, cardInfo, request);
+        userCardRepository.save(userCard);
 
         return userCard.getSeq();
     }
@@ -48,7 +51,7 @@ public class UserCardService {
      */
     @Transactional
     public void updateUserCard(Long seq, UpdateUserCardRequest request) {
-        UserCard userCard = userCardRepository.getUserCard(seq);
+        UserCard userCard = userCardRepository.findBySeq(seq).get();
         userCard.changeInfo(request);
     }
 
@@ -58,7 +61,7 @@ public class UserCardService {
      */
     @Transactional
     public void removeUserCard(Long seq) {
-        userCardRepository.removeUserCard(seq);
+        userCardRepository.deleteBySeq(seq);
     }
 
     /**
@@ -67,7 +70,7 @@ public class UserCardService {
      * @return 카드 상세 정보
      */
     public UserCardDetailInfoDto getUserCardInfo(Long seq) {
-        return new UserCardDetailInfoDto(userCardRepository.getUserCard(seq));
+        return new UserCardDetailInfoDto(userCardRepository.findBySeq(seq).get());
     }
 
     /**
@@ -76,7 +79,7 @@ public class UserCardService {
      * @return 카드 목록
      */
     public List<UserCardInfoDto> getUserCardList(String userId) {
-        return userCardRepository.getUserCardList(userId).stream().map(UserCardInfoDto::new).collect(Collectors.toList());
+        return userCardRepository.findByUser(userId).stream().map(UserCardInfoDto::new).collect(Collectors.toList());
     }
 
     /**
@@ -87,7 +90,7 @@ public class UserCardService {
      * @return 카드 사용 내역 목록
      */
     public List<CardUseHistDto> getCardUseHist(String cardNo, LocalDateTime startDate, LocalDateTime endDate) {
-        return userCardRepository.getCardUseHist(cardNo, startDate, endDate).stream().map(CardUseHistDto::new).collect(Collectors.toList());
+        return userCardQueryRepository.getCardUseHist(cardNo, startDate, endDate).stream().map(CardUseHistDto::new).collect(Collectors.toList());
     }
 
 }
