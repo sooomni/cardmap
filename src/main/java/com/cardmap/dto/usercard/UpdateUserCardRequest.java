@@ -16,6 +16,6 @@ public class UpdateUserCardRequest {
     @NotEmpty
     private String userId;
 
-    @NotEmpty
-    private String userIp;
+    //@NotEmpty
+    //private String userIp;
 }
