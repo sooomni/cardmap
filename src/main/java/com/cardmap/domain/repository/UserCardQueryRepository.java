@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class UserCardRepository {
+public class UserCardJpaRepository {
 
     private final EntityManager em;
 
