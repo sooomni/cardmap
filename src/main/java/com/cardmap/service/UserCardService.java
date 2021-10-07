@@ -79,29 +79,23 @@ public class UserCardService {
      * @return 카드 목록
      */
     public List<UserCardInfoDto> getUserCardList(String userId) {
-        return userCardRepository.findByUser(userId).stream().map(UserCardInfoDto::new).collect(Collectors.toList());
+        return userCardRepository.findByUser(userId)
+                .stream()
+                .map(UserCardInfoDto::new)
+                .collect(Collectors.toList());
     }
 
     /**
      * 카드 사용 내역 조회
      * @param cardNo 카드 번호
-     * @param startDate 조회 시작일
-     * @param endDate 조회 종료일
+     * @param request 카드 사용 내역 조회 조건
      * @return 카드 사용 내역 목록
      */
-    public List<CardUseHistDto> getCardUseHist(
-            String cardNo,
-            LocalDateTime startDate,
-            LocalDateTime endDate,
-            int offset,
-            int limit) {
-        return userCardQueryRepository.getCardUseHist(
-                cardNo,
-                startDate,
-                endDate,
-                offset
-                ,limit
-        ).stream().map(CardUseHistDto::new).collect(Collectors.toList());
+    public List<CardUseHistDto> getCardUseHist(String cardNo, CardUseHistRequest request) {
+        return userCardQueryRepository.getCardUseHist(cardNo, request)
+                .stream()
+                .map(CardUseHistDto::new)
+                .collect(Collectors.toList());
     }
 
 }

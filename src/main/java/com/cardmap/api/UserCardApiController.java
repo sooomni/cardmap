@@ -85,18 +85,14 @@ public class UserCardApiController {
     /**
      * 카드 사용 내역 조회
      * @param cardNo 카드 번호
-     * @param startDate 시작 기준일
-     * @param endDate 종료 기준일
+     * @param request 카드 사용 내역 조회 조건
      * @return 카드 사용 내역 목록
      */
     @GetMapping("/history/{cardNo}")
     public List<CardUseHistDto> getCardUseHist (
             @PathVariable("cardNo") String cardNo,
-            @RequestParam("startDate") LocalDateTime startDate,
-            @RequestParam("endDate") LocalDateTime endDate,
-            @RequestParam("offset") int offset,
-            @RequestParam("limit") int limit) {
-        return userCardService.getCardUseHist(cardNo, startDate, endDate, offset, limit);
+            @RequestBody CardUseHistRequest request)  {
+        return userCardService.getCardUseHist(cardNo, request);
     }
 
 }
