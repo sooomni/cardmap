@@ -15,18 +15,25 @@ public class UserCardQueryRepository {
     private final EntityManager em;
 
     // 사용자 카드 사용 내역 조회
-    public List<CardUseHist> getCardUseHist(String cardNo, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<CardUseHist> getCardUseHist(
+            String cardNo,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            int offset,
+            int limit) {
         return em.createQuery(
-                        "select h" +
-                                " from CardUseHist h" +
-                                " where h.cardNo = :cardNo" +
+                        "select " +
+                                " from UserCard c" +
+                                " join c.cardUseHistList h" +
+                                " where 1=1" +
                                 " and h.useDate >= :startDate" +
                                 " and h.useDate <= :endDate"
-                        , CardUseHist.class
-                )
+                        , CardUseHist.class)
                 .setParameter("cardNo", cardNo)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
                 .getResultList();
     }
 }

@@ -93,9 +93,10 @@ public class UserCardApiController {
     public List<CardUseHistDto> getCardUseHist (
             @PathVariable("cardNo") String cardNo,
             @RequestParam("startDate") LocalDateTime startDate,
-            @RequestParam("endDate") LocalDateTime endDate) {
-
-        return userCardService.getCardUseHist(cardNo, startDate, endDate);
+            @RequestParam("endDate") LocalDateTime endDate,
+            @RequestParam("offset") int offset,
+            @RequestParam("limit") int limit) {
+        return userCardService.getCardUseHist(cardNo, startDate, endDate, offset, limit);
     }
 
 }

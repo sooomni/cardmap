@@ -89,8 +89,19 @@ public class UserCardService {
      * @param endDate 조회 종료일
      * @return 카드 사용 내역 목록
      */
-    public List<CardUseHistDto> getCardUseHist(String cardNo, LocalDateTime startDate, LocalDateTime endDate) {
-        return userCardQueryRepository.getCardUseHist(cardNo, startDate, endDate).stream().map(CardUseHistDto::new).collect(Collectors.toList());
+    public List<CardUseHistDto> getCardUseHist(
+            String cardNo,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            int offset,
+            int limit) {
+        return userCardQueryRepository.getCardUseHist(
+                cardNo,
+                startDate,
+                endDate,
+                offset
+                ,limit
+        ).stream().map(CardUseHistDto::new).collect(Collectors.toList());
     }
 
 }
