@@ -1,24 +1,24 @@
 package com.cardmap.api;
-import com.cardmap.domain.entity.CardInfo;
-import com.cardmap.dto.CardVO;
+import com.cardmap.dto.cardinfo.CardDetailInfoDto;
+import com.cardmap.dto.cardinfo.CardInfoDto;
+import com.cardmap.dto.cardinfo.CreateCardInfoRequest;
+import com.cardmap.dto.cardinfo.UpdateCardInfoRequest;
 import com.cardmap.service.CardInfoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.*;
+
 @RestController
-@RequestMapping("/cardinfo")
-//@RequiredArgsConstructor
+@RequestMapping("/api/cardinfo")
+@RequiredArgsConstructor
 public class CardInfoAPIController {
     private final CardInfoService cardInfoService;
 
-    public CardInfoAPIController(CardInfoService cardInfoService) {
-        this.cardInfoService = cardInfoService;
-    }
-
     //카드 등록
     @PostMapping("/")
-    public void enrollCardInfo(@ModelAttribute("cardvo") CardVO cardVo) {
-        CardInfo cardInfo = CardInfo.builder(cardVo).build();
-        cardInfoService.createCardInfo(cardInfo);
+    public Long enrollCardInfo(@RequestBody CreateCardInfoRequest request) {
+        return cardInfoService.createCardInfo(request);
     }
 
     //카드 삭제
@@ -29,21 +29,20 @@ public class CardInfoAPIController {
 
     //카드 수정
     @PutMapping("/{cardInfoSeq}")
-    public void modifyCardInfo(@PathVariable long cardInfoSeq, @ModelAttribute("cardvo") CardVO cardVo) {
-        CardInfo cardInfo = CardInfo.builder(cardVo).build();
-        cardInfoService.updateCardInfo(cardInfoSeq, cardInfo);
+    public void modifyCardInfo(@PathVariable long cardInfoSeq,@RequestBody UpdateCardInfoRequest request) {
+        cardInfoService.updateCardInfo(cardInfoSeq, request);
     }
 
     //카드 상세 조회
     @GetMapping("/{cardInfoSeq}")
-    public void searchDetailCardInfo(@PathVariable Long cardInfoSeq) {
-        cardInfoService.getDetailCardInfo(cardInfoSeq);
+    public CardDetailInfoDto searchDetailCardInfo(@PathVariable Long cardInfoSeq) {
+        return cardInfoService.getDetailCardInfo(cardInfoSeq);
     }
 
     //카드 검색 (목록)
     @GetMapping("/{category}/{keyword}")
-    public void modifyCardInfo(@PathVariable String category, @PathVariable String keyword) {
-        cardInfoService.getCardInfoByCategoryAndKeyword(category,keyword);
+    public List<CardInfoDto> modifyCardInfo(@PathVariable String category, @PathVariable String keyword) {
+        return cardInfoService.getCardInfoByCategoryAndKeyword(category,keyword);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.cardmap.domain.entity;
 
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +24,20 @@ public class AnnualFee {
 
     private Long fee;
 
+    // 생성자 메서드
+    public static AnnualFee createAnnualFee(CardInfo cardInfo, String cardBrand, Long fee){
+        AnnualFee annualFee = new AnnualFee();
+
+        annualFee.setCardInfo(cardInfo);
+        annualFee.cardBrand = cardBrand;
+        annualFee.fee = fee;
+
+        return annualFee;
+    }
+
+    //연관 관계 메서드
+    public void setCardInfo(CardInfo cardInfo) {
+        this.cardInfo = cardInfo;
+        cardInfo.getAnnualFeeList().add(this);
+    }
 }

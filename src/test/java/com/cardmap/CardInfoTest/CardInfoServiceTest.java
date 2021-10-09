@@ -1,75 +1,50 @@
 package com.cardmap.CardInfoTest;
 
-import com.cardmap.domain.entity.AnnualFee;
-import com.cardmap.domain.entity.Benefit;
-import com.cardmap.domain.entity.CardInfo;
-import com.cardmap.domain.enums.BenefitCategory;
-import com.cardmap.domain.repository.CardInfoRepository;
-import com.cardmap.dto.CardVO;
+import com.cardmap.domain.enums.CreditStatus;
+import com.cardmap.domain.enums.TrafficStatus;
+import com.cardmap.domain.repository.CardInfoRepository;]
+import com.cardmap.dto.cardinfo.CreateCardInfoRequest;
+import com.cardmap.service.CardInfoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static com.cardmap.domain.enums.BenefitType.*;
-import static org.springframework.data.util.Optionals.ifPresentOrElse;
-
 @SpringBootTest
 public class CardInfoServiceTest {
 
     @Autowired
     private CardInfoRepository cardInfoRepository;
+    @Autowired
+    private CardInfoService cardInfoService;
 
     @Test
     @Order(1)
     @DisplayName("1) 등록")
     public void create(){
-        List <Benefit> benefitList = new ArrayList<>();
-        List <AnnualFee> annualFeeList = new ArrayList<>();
-        List <BenefitCategory> benefitCategoryList = new ArrayList<>();
-        CardVO cardVo = new CardVO();
-        cardVo.setCardInfoSeq((long) 0);
-        cardVo.setCardName("참 좋은 신한 카드 ");
-        cardVo.setCompanyName("신한");
-        cardVo.setBenefitList(benefitList);
-        cardVo.setAnnualFeeList(annualFeeList);
-        cardVo.setCompanyName("Y");
-        cardVo.setCompanyName("N");
-        cardVo.setBenefitCategoryList(benefitCategoryList);
-        cardVo.setBenefittype(Point);
-
-        CardInfo cardInfo = CardInfo.builder(cardVo).build();
-        CardInfo savedCardInfo = cardInfoRepository.save(cardInfo);
-        ifPresentOrElse(Optional.ofNullable(savedCardInfo), c -> System.out.println(c.getCardName()), () -> {
-            throw new IllegalArgumentException("Invalid cardInfo");
-        });
+        cardInfoService.createCardInfo(new CreateCardInfoRequest("참 좋은 신한 카드","신한", TrafficStatus.USE, CreditStatus.USE));
     }
 
     @Test
     @Order(2)
     @DisplayName("2) 삭제")
     public void delete(){
+
     }
 
     @Test
     @Order(3)
     @DisplayName("3) 전체 조회")
     public void findAll(){
-        List<CardInfo> cardInfoList= cardInfoRepository.findAll();
-        ifPresentOrElse(Optional.ofNullable(cardInfoList), c -> System.out.println("사이즈는 "+c.size()), () -> {
-            throw new NullPointerException("cardInfoList is Empty");
-        });
+        cardInfoService.getAllCardInfo();
     }
 
     @Test
     @Order(4)
     @DisplayName("4) 수정")
     public void update(){
+
     }
 
     @Test
