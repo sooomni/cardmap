@@ -34,7 +34,7 @@ public class UserApiController {
      * @return
      */
     @GetMapping("/{userId}")
-    public UserDto getUser(@PathVariable("userUd") String userId){
+    public UserDto getUser(@PathVariable("userId") String userId){
         return userService.getUser(userId);
     }
 
@@ -43,7 +43,7 @@ public class UserApiController {
      * @param request
      */
     @PutMapping("/{userId}")
-    public void updateUser(@PathVariable("userUd") String userId, @RequestBody @Valid UpdateUserRequest request){
+    public void updateUser(@PathVariable("userId") String userId, @RequestBody @Valid UpdateUserRequest request){
         userService.updateUser(userId, request);
         return;
     }
