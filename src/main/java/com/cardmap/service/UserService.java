@@ -58,7 +58,7 @@ public class UserService {
      */
     public void removeUser(String userId, DeleteUserRequest request) {
         User user = userRepository.getUser(userId);
-        user.checkDelte();
+        user.leaveAccount();
         return;
     }
 

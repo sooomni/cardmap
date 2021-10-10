@@ -104,7 +104,7 @@ public class User {
         }
     }
 
-    public void checkDelte() {
+    public void leaveAccount() {
 //        this.status = 탈퇴코드;
     }
 }
