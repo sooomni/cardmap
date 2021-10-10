@@ -94,7 +94,7 @@ public class UserApiController {
     @DeleteMapping("/{userId}/bookmarks/{placeId}")
     public void deleteBookmark(
             @PathVariable("userId") String userId,
-            @PathVariable("plcaeId") String placeId){
+            @PathVariable("placeId") String placeId){
         userService.removeBookmark(userId,placeId);
         return;
     }
