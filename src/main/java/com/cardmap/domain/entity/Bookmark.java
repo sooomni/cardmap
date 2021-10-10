@@ -14,6 +14,10 @@ import javax.persistence.*;
 public class Bookmark {
 
     @Id
+    @GeneratedValue
+    @Column(name="bookmark_seq")
+    private long seq;
+
     @Column(name="place_id")
     private String placeId;
 
