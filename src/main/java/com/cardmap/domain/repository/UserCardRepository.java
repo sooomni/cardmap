@@ -15,7 +15,7 @@ public interface UserCardRepository extends JpaRepository<UserCard, Long>, UserC
     Optional<UserCard> findBySeq(Long seq);
 
     // 사용자 카드 목록 조회
-    List<UserCard> findByUser(String userId);
+    List<UserCard> findByUserId(String userId);
 
     // 사용자 카드 삭제
     void deleteBySeq(Long seq);

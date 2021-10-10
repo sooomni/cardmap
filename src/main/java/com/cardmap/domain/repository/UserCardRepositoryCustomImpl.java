@@ -11,7 +11,7 @@ public class UserCardRepositoryCustomImpl implements UserCardRepositoryCustom {
     private final EntityManager em;
 
     @Override
-    public void registUserCard(UserCard userCard) {
+    public void addUserCard(UserCard userCard) {
         em.persist(userCard);
     }
 }

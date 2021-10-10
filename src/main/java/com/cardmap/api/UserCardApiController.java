@@ -46,9 +46,9 @@ public class UserCardApiController {
      * @return 등록 카드 정보
      */
     @PostMapping("")
-    public Long registUserCard (
+    public Long addUserCard (
             @RequestBody @Valid CreateUserCardRequest request) {
-        return userCardService.registUserCard(request);
+        return userCardService.addUserCard(request);
     }
 
     /**
@@ -64,6 +64,15 @@ public class UserCardApiController {
     }
 
     /**
+     * 사용자 카드 상태 수정 (USE -> NOT_USE, NOT_USE -> USE)
+     * @param seq
+     */
+    @PutMapping("/status/{userCardSeq}")
+    public void changeStatus(@PathVariable("userCardSeq") Long seq) {
+        userCardService.changeStatus(seq);
+    }
+
+    /**
      * 사용자 카드 삭제
      * @param seq 카드 일련 번호
      */
@@ -74,15 +83,15 @@ public class UserCardApiController {
 
     /**
      * 카드 사용 내역 조회
-     * @param cardNo 카드 번호
+     * @param userCardSeq 카드 번호
      * @param request 카드 사용 내역 조회 조건
      * @return 카드 사용 내역 목록
      */
-    @GetMapping("/history/{cardNo}")
+    @GetMapping("/history/{userCardSeq}")
     public List<CardUseHistDto> getCardUseHist (
-            @PathVariable("cardNo") String cardNo,
+            @PathVariable("userCardSeq") Long userCardSeq,
             @RequestBody CardUseHistRequest request)  {
-        return userCardService.getCardUseHist(cardNo, request);
+        return userCardService.getCardUseHist(userCardSeq, request);
     }
 
 }

@@ -1,20 +1,21 @@
 package com.cardmap.dto.usercard;
 
 import com.cardmap.domain.entity.UserCard;
+import com.cardmap.domain.enums.UseStatus;
 import lombok.Data;
 
 @Data
 public class UserCardInfoDto {
 
-    private Long userCardSeq;
+    private Long seq;
     private String cardNo;
     private String cardNickname;
-    private String companyName;
+    private UseStatus status;
 
     public UserCardInfoDto(UserCard userCard) {
-        this.userCardSeq = userCard.getSeq();
+        this.seq = userCard.getSeq();
         this.cardNo = userCard.getCardNo();
         this.cardNickname = userCard.getCardNickname();
-        this.companyName = userCard.getCardInfo().getCompanyName();
+        this.status = userCard.getStatus();
     }
 }

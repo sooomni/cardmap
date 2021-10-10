@@ -11,18 +11,15 @@ import java.time.LocalDateTime;
 public class CreateUserCardRequest {
 
     @NotEmpty
+    private String userId;
+
+    @NotEmpty
     private String cardNo;
 
     private String cardNickname;
 
     @NotEmpty
     private Long cardInfoSeq;
-
-    @NotEmpty
-    private String userId;
-
-    // @NotEmpty
-    // private String userIp;
 
     @NotEmpty
     private LocalDateTime expDate;
