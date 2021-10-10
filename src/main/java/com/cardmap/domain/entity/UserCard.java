@@ -1,10 +1,12 @@
 package com.cardmap.domain.entity;
 
 import com.cardmap.domain.enums.UseStatus;
-import io.micrometer.core.instrument.util.StringUtils;
+import com.cardmap.dto.usercard.CreateUserCardRequest;
+import com.cardmap.dto.usercard.UpdateUserCardRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,7 +17,7 @@ import java.util.List;
 @Getter
 @Table(name = "user_card")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserCard {
+public class UserCard extends BaseInfo {
 
     @Id @GeneratedValue
     @Column(name = "user_card_seq")
@@ -36,49 +38,48 @@ public class UserCard {
     private final List<CardUseHist> cardUseHistList = new ArrayList<>();
 
     private LocalDateTime expDate;
-    private LocalDateTime regDate;
 
     @Enumerated(EnumType.STRING)
     private UseStatus status;
 
     // 생성자 메서드
-    public static UserCard createUserCard(User user, CardInfo cardInfo, String cardNo, String cardNickname, LocalDateTime expDate) {
+    public static UserCard createUserCard(User user, CardInfo cardInfo, CreateUserCardRequest request) {
         UserCard userCard = new UserCard();
 
         userCard.setUser(user);
         userCard.setCardInfo(cardInfo);
-        userCard.cardNo = cardNo;
-        userCard.cardNickname = cardNickname;
+        userCard.cardNo = request.getCardNo();
+        userCard.cardNickname = request.getCardNickname();
         userCard.status = UseStatus.USE;
-        userCard.expDate = expDate;
-        userCard.regDate = LocalDateTime.now();
+        userCard.expDate = request.getExpDate();
 
         return userCard;
     }
 
     // 비즈니스 로직
-    public void changeInfo(String cardNickname, LocalDateTime expDate, UseStatus useStatus) {
-        if(StringUtils.isNotEmpty(cardNickname)) {
-            this.cardNickname = cardNickname;
+    public void changeInfo(UpdateUserCardRequest request) {
+
+        if (StringUtils.hasText(request.getCardNickname())) {
+            this.cardNickname = request.getCardNickname();
         }
 
-        if(expDate != null) {
-            this.expDate = expDate;
+        if (request.getExpDate() != null) {
+            this.expDate = request.getExpDate();
         }
 
-        if(useStatus != null) {
-            this.status = useStatus;
+        if (request.getUseStatus() != null) {
+            this.status = request.getUseStatus();
         }
     }
 
     // 연관 관계 메서드
-    public void setUser(User user) {
+    private void setUser(User user) {
         this.user = user;
         user.getUserCardList().add(this);
     }
 
-    public void setCardInfo(CardInfo cardInfo) {
+    private void setCardInfo(CardInfo cardInfo) {
         this.cardInfo = cardInfo;
-        // cardInfo.getUserCardList().add(this);
+        cardInfo.getUserCardList().add(this);
     }
 }
