@@ -39,7 +39,7 @@ public class UserCardService {
         CardInfo cardInfo = cardInfoRepository.findByCardInfoSeq(request.getCardInfoSeq()).get();
 
         UserCard userCard = UserCard.createUserCard(null, cardInfo, request);
-        userCardRepository.save(userCard);
+        userCardRepository.registUserCard(userCard);
 
         return userCard.getSeq();
     }

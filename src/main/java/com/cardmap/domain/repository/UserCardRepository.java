@@ -9,16 +9,13 @@ import java.util.Optional;
 /**
  * Main Logic
  */
-public interface UserCardRepository extends JpaRepository<UserCard, Long> {
+public interface UserCardRepository extends JpaRepository<UserCard, Long>, UserCardRepositoryCustom {
 
     // 사용자 카드 상세 정보 조회
     Optional<UserCard> findBySeq(Long seq);
 
     // 사용자 카드 목록 조회
     List<UserCard> findByUser(String userId);
-
-    // 사용자 카드 등록
-    UserCard save(UserCard userCard);
 
     // 사용자 카드 삭제
     void deleteBySeq(Long seq);
