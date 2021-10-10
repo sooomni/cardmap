@@ -43,16 +43,11 @@ public class UserCardApiController {
     /**
      * 사용자 카드 등록
      * @param request 등록할 카드 정보
-     * @param servletRequest 사용자 IP 확인용 파라미터
      * @return 등록 카드 정보
      */
     @PostMapping("")
     public Long registUserCard (
-            @RequestBody @Valid CreateUserCardRequest request,
-            HttpServletRequest servletRequest) {
-        // 사용자 IP 주소 확인
-//        String userIp = AccessInfo.getUserRemoteAddress(servletRequest);
-//        request.setUserIp(userIp);
+            @RequestBody @Valid CreateUserCardRequest request) {
         return userCardService.registUserCard(request);
     }
 
@@ -60,16 +55,11 @@ public class UserCardApiController {
      * 사용자 카드 정보 수정
      * @param seq 카드 일련 번호
      * @param request 수정할 카드 정보
-     * @param servletRequest 사용자 IP 확인용 파라미터
      */
     @PutMapping("/{userCardSeq}")
     public void updateUserCard (
             @PathVariable("userCardSeq") Long seq,
-            @RequestBody UpdateUserCardRequest request,
-            HttpServletRequest servletRequest) {
-        // 사용자 IP 주소 확인
-//        String userIp = AccessInfo.getUserRemoteAddress(servletRequest);
-//        request.setUserIp(userIp);
+            @RequestBody UpdateUserCardRequest request) {
         userCardService.updateUserCard(seq, request);
     }
 
