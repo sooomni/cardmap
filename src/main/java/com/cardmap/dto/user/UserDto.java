@@ -4,6 +4,7 @@ import com.cardmap.domain.entity.Bookmark;
 import com.cardmap.domain.entity.User;
 import com.cardmap.domain.entity.UserCard;
 import com.cardmap.domain.enums.UserStatus;
+import com.cardmap.dto.usercard.UserCardInfoDto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ public class UserDto {
     private String password;
     private String userName;
     private final List<BookmarkDto> bookmarkList = new ArrayList<>();
-    private final List<UserCard> userCardList = new ArrayList<>();
+    private final List<UserCardInfoDto> userCardList = new ArrayList<>();
     private UserStatus status;
     private String mobile;
     private String modId;
@@ -52,15 +53,9 @@ public class UserDto {
     private void setUserCardList(List<UserCard> userCardList) {
         this.userCardList.clear();
         userCardList.forEach(value -> {
-//            if (value != null) {
-//                this.userCardList.add(
-//                        new UserCardDto(
-//                                value.getCardNo(),
-//                                value.getCardName(),
-//                                ----,
-//
-//                        ));
-//            }
+            if (value != null) {
+                this.userCardList.add(new UserCardInfoDto(value));
+            }
         });
     }
 }

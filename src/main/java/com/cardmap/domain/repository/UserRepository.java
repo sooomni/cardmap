@@ -1,14 +1,12 @@
 package com.cardmap.domain.repository;
 
+import com.cardmap.domain.entity.Bookmark;
 import com.cardmap.domain.entity.User;
-import com.cardmap.dto.user.DeleteUserRequest;
-import com.cardmap.dto.user.FindUserIdRequest;
-import com.cardmap.dto.user.FindUserPasswordRequest;
-import com.cardmap.dto.user.RegistUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,17 +16,10 @@ public class UserRepository {
 
     /**
      * 회원 정보 등록
+     *
      * @param user
      */
-    public void registUser(RegistUserRequest user){
-        em.persist(user);
-    }
-
-    /**
-     * 회원 정보 수정
-     * @param user
-     */
-    public void registUser(User user){
+    public void registUser(User user) {
         em.persist(user);
     }
 
@@ -37,19 +28,41 @@ public class UserRepository {
      * @param userId
      * @return
      */
-    public User getUser(String userId){
+    public User getUser(String userId) {
         return em.find(User.class, userId);
     }
 
-    public void deleteUser(DeleteUserRequest request){
-        em.remove(request.getId(),request.getPassword());
+    public User findUserId(String userName) {
+        return em.find(User.class, userName);
     }
 
-    public User findUserId(FindUserIdRequest request){
-        return em.find(User.class, request.getUserName());
+    public User findUserPassword(String userName) {
+        return em.find(User.class, userName);
     }
 
-    public User findUserPassword(FindUserPasswordRequest request){
-        return em.find(User.class, request.getUserName());
+    public void registBookmark(Bookmark bookmark) {
+        em.persist(bookmark);
+    }
+
+    public void removeBookmark(String userId, String placeId) {
+        User user = em.find(User.class, userId);
+        em.createQuery(
+                        "delete from Bookmark" +
+                                " where userId =: userId" +
+                                " and plcaeId =: placeId"
+                        , Bookmark.class
+                )
+                .setParameter("userId", userId)
+                .setParameter("placeId", placeId);
+    }
+
+    public List<Bookmark> getBookmarkList(String userId) {
+        return em.createQuery(
+                        "select * from Bookmark" +
+                                " where userId = :userId"
+                        , Bookmark.class
+                )
+                .setParameter("userId", userId)
+                .getResultList();
     }
 }

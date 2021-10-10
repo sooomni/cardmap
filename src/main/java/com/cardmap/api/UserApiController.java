@@ -44,7 +44,7 @@ public class UserApiController {
      */
     @PutMapping("/{userId}")
     public void updateUser(@PathVariable("userUd") String userId, @RequestBody @Valid UpdateUserRequest request){
-        userService.updateUser(request);
+        userService.updateUser(userId, request);
         return;
     }
 
@@ -54,7 +54,7 @@ public class UserApiController {
      */
     @PutMapping("/{userId}/delete")
     public void RemoveUser(@PathVariable("userId") String userId, @RequestBody @Valid  DeleteUserRequest request){
-        userService.deleteUser(request);
+        userService.removeUser(userId, request);
         return;
     }
 
@@ -63,9 +63,8 @@ public class UserApiController {
      * @param request
      */
     @PostMapping("/find-id")
-    public void findUserId(@RequestBody @Valid FindUserIdRequest request){
-        userService.findUserId(request);
-        return;
+    public String findUserId(@RequestBody @Valid FindUserIdRequest request){
+        return userService.findUserId(request);
     }
 
     /**
@@ -73,9 +72,8 @@ public class UserApiController {
      * @param request
      */
     @PostMapping("/find-pw")
-    public void findUserPassword(@RequestBody @Valid FindUserPasswordRequest request){
-        userService.findUserPassword(request);
-        return;
+    public String findUserPassword(@RequestBody @Valid FindUserPasswordRequest request){
+        return userService.findUserPassword(request);
     }
 
     /**
@@ -83,8 +81,8 @@ public class UserApiController {
      * @param request
      */
     @PostMapping("/{userId}/bookmarks")
-    public void registBookmark(@RequestBody @Valid RegistBookmarkRequest request){
-        userService.registBookmark(request);
+    public void registBookmark(@PathVariable("userId") String userId, @RequestBody @Valid RegistBookmarkRequest request){
+        userService.registBookmark(userId, request);
         return;
     }
 
@@ -97,7 +95,7 @@ public class UserApiController {
     public void deleteBookmark(
             @PathVariable("userId") String userId,
             @PathVariable("plcaeId") String placeId){
-        userService.deleteBookmark(userId,placeId);
+        userService.removeBookmark(userId,placeId);
         return;
     }
 

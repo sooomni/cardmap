@@ -2,8 +2,11 @@ package com.cardmap.domain.entity;
 
 import com.cardmap.domain.enums.UseStatus;
 import com.cardmap.domain.enums.UserStatus;
+import com.cardmap.dto.user.RegistUserRequest;
+import com.cardmap.dto.user.UpdateUserRequest;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -65,6 +68,16 @@ public class User {
         return user;
     }
 
+    public static User createUser(RegistUserRequest request){
+        User user = new User();
+        user.id = request.getId();
+        user.password = request.getPassword();
+        user.userName = request.getUsername();
+        user.mobile = request.getMobile();
+
+        return user;
+    }
+
     // 연관 관계 메서드
     private void setBookmarkList(List<Bookmark> bookmarkList) {
         this.bookmarkList.clear();
@@ -83,5 +96,15 @@ public class User {
                 this.userCardList.add(value);
             }
         });
+    }
+
+    public void changeInfo(String mobile) {
+        if(mobile != null){
+            this.mobile = mobile;
+        }
+    }
+
+    public void checkDelte() {
+//        this.status = 탈퇴코드;
     }
 }

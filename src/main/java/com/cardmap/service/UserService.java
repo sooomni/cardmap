@@ -1,62 +1,90 @@
 package com.cardmap.service;
 
+import com.cardmap.domain.entity.Bookmark;
 import com.cardmap.domain.entity.User;
+import com.cardmap.domain.repository.UserCardRepository;
 import com.cardmap.domain.repository.UserRepository;
-import com.cardmap.dto.user.BookmarkDto;
-import com.cardmap.dto.user.RegistBookmarkRequest;
 import com.cardmap.dto.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserCardRepository userCardRepository;
 
+    /**
+     * 회원 정보 조회
+     * @param userId
+     * @return
+     */
     public UserDto getUser(String userId) {
-        UserDto user = new UserDto(userRepository.getUser(userId));
-        return user;
+        UserDto userDto = new UserDto(userRepository.getUser(userId));
+        return userDto;
     }
 
+    /**
+     * 회원 등록
+     * @param request
+     */
     public void registUser(RegistUserRequest request) {
-        userRepository.registUser(request);
+        User user = User.createUser(request);
+        userRepository.registUser(user);
         return;
     }
 
-    public void updateUser(UpdateUserRequest request) {
-        User user = userRepository.getUser(request.getId());
-        /**
-         * 변화된 정보 삽입( null 체크 필요)
-         */
-        userRepository.registUser(user);
+    /**
+     * 회원 정보 수정
+     * @param userId
+     * @param request
+     */
+    public void updateUser(String userId, UpdateUserRequest request) {
+        User user = userRepository.getUser(userId);
+        user.changeInfo(request.getMobile());
+        return;
     }
 
-    public void deleteUser(DeleteUserRequest request) {
-        userRepository.deleteUser(request);
+    /**
+     * 회원 탈퇴 처리
+     * @param userId
+     * @param request
+     */
+    public void removeUser(String userId, DeleteUserRequest request) {
+        User user = userRepository.getUser(userId);
+        user.checkDelte();
+        return;
     }
 
-    public void findUserId(FindUserIdRequest request) {
-        userRepository.findUserId(request);
+    public String findUserId(FindUserIdRequest request) {
+        String userId = userRepository.findUserId(request.getUserName()).getId();
+        return userId;
     }
 
-    public void findUserPassword(FindUserPasswordRequest request) {
-        userRepository.findUserPassword(request);
+    public String findUserPassword(FindUserPasswordRequest request) {
+        String password = userRepository.findUserPassword(request.getUserName()).getPassword();
+        return password;
     }
 
-    public void registBookmark(RegistBookmarkRequest request) {
-
+    public void registBookmark(String userId, RegistBookmarkRequest request) {
+        User user = userRepository.getUser(userId);
+        Bookmark bookmark = Bookmark.create(request, user);
+        userRepository.registBookmark(bookmark);
+        return;
     }
 
-    public void deleteBookmark(String userId, String placeId) {
-
+    public void removeBookmark(String userId, String placeId) {
+        userRepository.removeBookmark(userId, placeId);
+        return;
     }
 
     public List<BookmarkDto> getBookmarks(String userId) {
-        return null;
+        return userRepository.getBookmarkList(userId).stream().map(BookmarkDto::new).collect(Collectors.toList());
     }
 }
