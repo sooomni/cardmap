@@ -17,7 +17,7 @@ public class UserCardQueryRepository {
     // 사용자 카드 사용 내역 조회
     public List<CardUseHist> getCardUseHist(String cardNo, CardUseHistRequest request) {
         return em.createQuery(
-                        "select " +
+                        "select h" +
                                 " from UserCard c" +
                                 " join c.cardUseHistList h" +
                                 " where 1=1" +
