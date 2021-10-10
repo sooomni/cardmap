@@ -1,4 +1,4 @@
-package com.cardmap.dto.bookmark;
+package com.cardmap.dto.user;
 
 import lombok.Data;
 

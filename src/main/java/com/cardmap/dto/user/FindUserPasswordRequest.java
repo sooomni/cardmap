@@ -10,7 +10,4 @@ public class FindUserPasswordRequest {
     @NotEmpty
     private String userName;
 
-    @NotEmpty
-    private String id;
-
 }
