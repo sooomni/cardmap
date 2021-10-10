@@ -1,10 +1,7 @@
 package com.cardmap.domain.entity;
 
-import com.cardmap.domain.enums.BenefitCategory;
-import com.cardmap.domain.enums.BenefitType;
-import com.cardmap.domain.enums.CreditStatus;
-import com.cardmap.domain.enums.TrafficStatus;
-import com.cardmap.dto.CardVO;
+import com.cardmap.domain.enums.*;
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,7 +13,6 @@ import java.util.List;
 @Table(name = "card_info")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder(builderMethodName = "CardInfoBuilder")
 public class CardInfo {
     @Id
     @GeneratedValue
@@ -24,17 +20,14 @@ public class CardInfo {
 
     private String cardName;
 
-    //@OneToMany(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "user_id")
-    //private UserCard userCard;
     @OneToMany(mappedBy = "cardInfo", cascade = CascadeType.ALL)
-    private List<UserCard> userCardList = new ArrayList<>();
+    private final List<UserCard> userCardList = new ArrayList<>();
 
     @OneToMany(mappedBy = "cardInfo", cascade = CascadeType.ALL)
-    private List<Benefit> benefitList = new ArrayList<>();
+    private final List<Benefit> benefitList = new ArrayList<>();
 
     @OneToMany(mappedBy = "cardInfo", cascade = CascadeType.ALL)
-    private List<AnnualFee> annualFeeList = new ArrayList<>();
+    private final List<AnnualFee> annualFeeList = new ArrayList<>();
 
     private String companyName;
 
@@ -44,22 +37,25 @@ public class CardInfo {
     @Enumerated(EnumType.STRING)
     private CreditStatus creditYn;
 
-    //@Enumerated(EnumType.STRING)
-    private List<BenefitCategory> benefitCategoryList;
+    // 생성자 메서드
+    public static CardInfo createCardInfo(String cardName, String companyName, TrafficStatus trafficYn, CreditStatus creditYn) {
+        CardInfo cardInfo = new CardInfo();
 
-    @Enumerated(EnumType.STRING)
-    private BenefitType benefittype;
+        cardInfo.cardName = cardName;
+        cardInfo.companyName = companyName;
+        cardInfo.trafficYn = trafficYn;
+        cardInfo.creditYn = creditYn;
 
-    public static CardInfoBuilder builder(CardVO cardVo) {
-        return CardInfoBuilder()
-                .cardInfoSeq(cardVo.getCardInfoSeq())
-                .cardName(cardVo.getCardName())
-                .benefitList(cardVo.getBenefitList())
-                .annualFeeList(cardVo.getAnnualFeeList())
-                .companyName(cardVo.getCompanyName())
-                .trafficYn(cardVo.getTrafficYn())
-                .creditYn(cardVo.getCreditYn())
-                .benefitCategoryList(cardVo.getBenefitCategoryList())
-                .benefittype(cardVo.getBenefittype());
+        return cardInfo;
+    }
+
+    public void changeCardInfo(String cardName, String companyName) {
+        if (StringUtils.isNotEmpty(cardName)) {
+            this.cardName = cardName;
+        }
+
+        if (StringUtils.isNotEmpty(companyName)) {
+            this.cardName = companyName;
+        }
     }
 }
