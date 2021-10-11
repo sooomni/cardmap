@@ -3,13 +3,15 @@ package com.cardmap.service;
 import com.cardmap.domain.entity.AnnualFee;
 import com.cardmap.domain.entity.Benefit;
 import com.cardmap.domain.entity.CardInfo;
+import com.cardmap.domain.enums.BenefitCategory;
+import com.cardmap.domain.enums.BenefitType;
 import com.cardmap.domain.repository.AnnualFeeRepository;
 import com.cardmap.domain.repository.BenefitRepository;
 import com.cardmap.domain.repository.CardInfoRepository;
 import com.cardmap.dto.cardinfo.CardDetailInfoDto;
 import com.cardmap.dto.cardinfo.CardInfoDto;
-import com.cardmap.dto.cardinfo.CreateCardInfoRequest;
-import com.cardmap.dto.cardinfo.UpdateCardInfoRequest;
+import com.cardmap.dto.cardinfo.CardInfoRequest;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +32,7 @@ public class CardInfoService {
 
     //카드 등록
     @Transactional
-    public Long createCardInfo(CreateCardInfoRequest request) {
+    public Long createCardInfo(CardInfoRequest request) {
         CardInfo cardInfo = CardInfo.createCardInfo(request.getCardName(),request.getCompanyName(),request.getTrafficYn(),request.getCreditYn());
         cardInfoRepository.save(cardInfo);
         return cardInfo.getCardInfoSeq();
@@ -49,7 +51,7 @@ public class CardInfoService {
 
     //카드 수정
     @Transactional
-    public void updateCardInfo(Long cardInfoSeq, UpdateCardInfoRequest request) {
+    public void updateCardInfo(Long cardInfoSeq, CardInfoRequest request) {
         CardInfo cardInfo = cardInfoRepository.findByCardInfoSeq(cardInfoSeq);
         cardInfo.changeCardInfo(request.getCardName(),request.getCompanyName());
 
@@ -62,24 +64,24 @@ public class CardInfoService {
         List<Benefit> benefitList = benefitRepository.findByCardInfoSeq(cardInfoSeq);
         CardInfo cardInfo = cardInfoRepository.findByCardInfoSeq(cardInfoSeq);
 
-        return new CardDetailInfoDto(cardInfo.getCardInfoSeq(),cardInfo.getCardName(),cardInfo.getCompanyName(), benefitList, annualFeeList,cardInfo.getTrafficYn(),cardInfo.getCreditYn());
+        return new CardDetailInfoDto(cardInfo,benefitList,annualFeeList);
     }
 
     //카드 검색
     public List<CardInfoDto> getCardInfoByCategoryAndKeyword(String category, String keyword) {
-        List <CardInfo> keywordList = cardInfoRepository.findCardInfoByKeyword(keyword);
+        List <CardInfo> cardInfoByKeywordList  = cardInfoRepository.findCardInfoByKeyword(keyword);
         List <CardInfo> categoryList =   benefitRepository.findBenefitByCategory(category)
                                                           .stream()
                                                           .map(Benefit::getCardInfo)
-                                                          .map(cardInfo -> cardInfo.getCardInfoSeq())
+                                                          .map(CardInfo::getCardInfoSeq)
                                                           .map(cardInfoRepository::findByCardInfoSeq)
                                                           .collect(Collectors.toList());
 
         List<CardInfoDto> CardInfoDtoList = new ArrayList<>();
-        List <CardInfo> mergetList = Stream.of(keywordList, categoryList)
+        List <CardInfo> mergeList = Stream.of(cardInfoByKeywordList, categoryList)
                         .flatMap(x -> x.stream())
                         .collect(Collectors.toList());
-        for(CardInfo c : mergetList){
+        for(CardInfo c : mergeList){
             CardInfoDtoList.add(new CardInfoDto(c.getCardInfoSeq(), c.getCardName(), c.getCompanyName()));
         }
         return CardInfoDtoList;

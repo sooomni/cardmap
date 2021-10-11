@@ -2,6 +2,7 @@ package com.cardmap.dto.cardinfo;
 
 import com.cardmap.domain.entity.AnnualFee;
 import com.cardmap.domain.entity.Benefit;
+import com.cardmap.domain.entity.CardInfo;
 import com.cardmap.domain.enums.CreditStatus;
 import com.cardmap.domain.enums.TrafficStatus;
 import lombok.Data;
@@ -25,13 +26,13 @@ public class CardDetailInfoDto {
 
     private CreditStatus creditYn;
 
-    public CardDetailInfoDto(Long cardInfoSeq, String cardName, String companyName, List<Benefit> benefitList, List<AnnualFee> annualFeeList, TrafficStatus trafficYn, CreditStatus creditYn) {
-        this.cardInfoSeq = cardInfoSeq;
-        this.cardName = cardName;
-        this.companyName = companyName;
+    public CardDetailInfoDto(CardInfo cardInfo, List<Benefit> benefitList, List<AnnualFee> annualFee) {
+        this.cardInfoSeq = cardInfo.getCardInfoSeq();
+        this.cardName = cardInfo.getCardName();
+        this.companyName = cardInfo.getCompanyName();
         this.benefitList = benefitList;
-        this.annualFeeList = annualFeeList;
-        this.trafficYn = trafficYn;
-        this.creditYn = creditYn;
+        this.annualFeeList = cardInfo.getAnnualFeeList();
+        this.trafficYn = cardInfo.getTrafficYn();
+        this.creditYn = cardInfo.getCreditYn();
     }
 }

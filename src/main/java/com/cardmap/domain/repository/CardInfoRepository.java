@@ -13,7 +13,7 @@ public class CardInfoRepository {
     private final EntityManager em;
 
   public List<CardInfo> findAll(){
-      String jpql = "select c from CardInfo";
+      String jpql = "select c from CardInfo c";
       return em.createQuery(jpql, CardInfo.class).getResultList();
   }
   public CardInfo findByCardInfoSeq(Long cardInfoSeq){

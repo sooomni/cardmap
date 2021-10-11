@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "card_info")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class CardInfo {
+public class CardInfo extends BaseInfo {
     @Id
     @GeneratedValue
     private Long cardInfoSeq;
