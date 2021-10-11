@@ -96,12 +96,12 @@ public class UserCardService {
 
     /**
      * 카드 사용 내역 조회
-     * @param userCardSeq 카드 번호
+     * @param seq 카드 번호
      * @param request 카드 사용 내역 조회 조건
      * @return 카드 사용 내역 목록
      */
-    public List<CardUseHistDto> getCardUseHist(Long userCardSeq, CardUseHistRequest request) {
-        return userCardQueryRepository.getCardUseHist(userCardSeq, request)
+    public List<CardUseHistDto> getCardUseHist(Long seq, CardUseHistRequest request) {
+        return userCardQueryRepository.getCardUseHist(seq, request)
                 .stream()
                 .map(CardUseHistDto::new)
                 .collect(Collectors.toList());

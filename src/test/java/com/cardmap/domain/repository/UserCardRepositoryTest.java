@@ -9,6 +9,7 @@ import com.cardmap.domain.enums.TrafficStatus;
 import com.cardmap.dto.user.RegistUserRequest;
 import com.cardmap.dto.usercard.*;
 import com.cardmap.service.UserCardService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +38,23 @@ class UserCardRepositoryTest {
     @PersistenceContext
     EntityManager em;
 
+    private CardInfo getCardInfo(String cardName, String companyName) {
+        CardInfo card = CardInfo.createCardInfo(cardName, companyName, TrafficStatus.USE, CreditStatus.USE);
+        em.persist(card);
+        return card;
+    }
+
+    private User getUser() {
+        RegistUserRequest request = new RegistUserRequest();
+        request.setUsername("user1");
+        request.setId("user1");
+        request.setPassword("1234");
+        request.setMobile("1234");
+        User user = User.createUser(request);
+        em.persist(user);
+        return user;
+    }
+
     @Test
     @Rollback(false)
     public void addUserCardTest() {
@@ -50,7 +68,7 @@ class UserCardRepositoryTest {
 
         UserCard userCard2 = UserCard.createUserCard(user, cardInfo2,
                 new CreateUserCardRequest("1234", "card2", "card2", cardInfo2.getCardInfoSeq(), LocalDateTime.now()));
-        
+
         userCardRepository.addUserCard(userCard1);
         userCardRepository.addUserCard(userCard2);
 
@@ -68,22 +86,6 @@ class UserCardRepositoryTest {
 
     }
 
-    private CardInfo getCardInfo(String cardName, String companyName) {
-        CardInfo card = CardInfo.createCardInfo(cardName, companyName, TrafficStatus.USE, CreditStatus.USE);
-        em.persist(card);
-        return card;
-    }
-
-    private User getUser() {
-        RegistUserRequest request = new RegistUserRequest();
-        request.setUsername("user1");
-        request.setId("user1");
-        request.setPassword("1234");
-        request.setMobile("1234");
-        User user = User.createUser(request);
-        em.persist(user);
-        return user;
-    }
 
     @Test
     @Rollback(false)

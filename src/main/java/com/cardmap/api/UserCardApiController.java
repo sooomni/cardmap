@@ -83,15 +83,15 @@ public class UserCardApiController {
 
     /**
      * 카드 사용 내역 조회
-     * @param userCardSeq 카드 번호
+     * @param seq 카드 번호
      * @param request 카드 사용 내역 조회 조건
      * @return 카드 사용 내역 목록
      */
     @GetMapping("/history/{userCardSeq}")
     public List<CardUseHistDto> getCardUseHist (
-            @PathVariable("userCardSeq") Long userCardSeq,
+            @PathVariable("userCardSeq") Long seq,
             @RequestBody CardUseHistRequest request)  {
-        return userCardService.getCardUseHist(userCardSeq, request);
+        return userCardService.getCardUseHist(seq, request);
     }
 
 }
