@@ -55,6 +55,11 @@ class UserCardRepositoryTest {
         return user;
     }
 
+    @BeforeEach
+    public void before() {
+        
+    }
+
     @Test
     @Rollback(false)
     public void addUserCardTest() {
