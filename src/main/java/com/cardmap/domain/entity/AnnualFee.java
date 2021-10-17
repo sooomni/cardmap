@@ -1,10 +1,13 @@
 package com.cardmap.domain.entity;
 
+import com.cardmap.dto.cardinfo.AnnualFeeDto;
+import com.cardmap.dto.cardinfo.AnnualFeeRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,12 +28,12 @@ public class AnnualFee {
     private Long fee;
 
     // 생성자 메서드
-    public static AnnualFee createAnnualFee(CardInfo cardInfo, String cardBrand, Long fee){
+    public static AnnualFee createAnnualFee(CardInfo cardInfo, AnnualFeeRequest annualFeeRequest){
         AnnualFee annualFee = new AnnualFee();
 
+        annualFee.cardBrand = annualFeeRequest.getCardBrand();
+        annualFee.fee = annualFeeRequest.getFee();
         annualFee.setCardInfo(cardInfo);
-        annualFee.cardBrand = cardBrand;
-        annualFee.fee = fee;
 
         return annualFee;
     }

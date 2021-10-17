@@ -1,8 +1,7 @@
 package com.cardmap.api;
 import com.cardmap.dto.cardinfo.CardDetailInfoDto;
 import com.cardmap.dto.cardinfo.CardInfoDto;
-import com.cardmap.dto.cardinfo.CreateCardInfoRequest;
-import com.cardmap.dto.cardinfo.UpdateCardInfoRequest;
+import com.cardmap.dto.cardinfo.CardInfoRequest;
 import com.cardmap.service.CardInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,7 @@ public class CardInfoAPIController {
 
     //카드 등록
     @PostMapping("/")
-    public Long enrollCardInfo(@RequestBody CreateCardInfoRequest request) {
+    public Long enrollCardInfo(@RequestBody CardInfoRequest request) {
         return cardInfoService.createCardInfo(request);
     }
 
@@ -29,7 +28,7 @@ public class CardInfoAPIController {
 
     //카드 수정
     @PutMapping("/{cardInfoSeq}")
-    public void modifyCardInfo(@PathVariable long cardInfoSeq,@RequestBody UpdateCardInfoRequest request) {
+    public void modifyCardInfo(@PathVariable long cardInfoSeq,@RequestBody CardInfoRequest request) {
         cardInfoService.updateCardInfo(cardInfoSeq, request);
     }
 

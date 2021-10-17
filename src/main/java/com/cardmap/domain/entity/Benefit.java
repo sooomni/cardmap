@@ -2,11 +2,14 @@ package com.cardmap.domain.entity;
 
 import com.cardmap.domain.enums.BenefitCategory;
 import com.cardmap.domain.enums.BenefitType;
+import com.cardmap.dto.cardinfo.BenefitDto;
+import com.cardmap.dto.cardinfo.BenefitRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,18 +36,17 @@ public class Benefit {
     private String performance;
 
     // 생성자 메서드
-    public static Benefit createBenefit(CardInfo cardInfo, BenefitType benefitType, String benefitCont,BenefitCategory benefitCategory,String performance){
+    public static Benefit createBenefit(CardInfo cardInfo, BenefitRequest benefitRequest){
         Benefit benefit = new Benefit();
 
+        benefit.benefitType = benefitRequest.getBenefitType();
+        benefit.benefitCont = benefitRequest.getBenefitCont();
+        benefit.benefitCategory = benefitRequest.getBenefitCategory();
+        benefit.performance = benefitRequest.getPerformance();
         benefit.setCardInfo(cardInfo);
-        benefit.benefitType = benefitType;
-        benefit.benefitCont = benefitCont;
-        benefit.benefitCategory = benefitCategory;
-        benefit.performance = performance;
 
         return benefit;
     }
-
     //연관 관계 메서드
     public void setCardInfo(CardInfo cardInfo) {
         this.cardInfo = cardInfo;

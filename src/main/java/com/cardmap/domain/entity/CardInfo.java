@@ -1,6 +1,7 @@
 package com.cardmap.domain.entity;
 
 import com.cardmap.domain.enums.*;
+import com.cardmap.dto.cardinfo.*;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Table(name = "card_info")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class CardInfo {
+public class CardInfo extends BaseInfo {
     @Id
     @GeneratedValue
     private Long cardInfoSeq;
@@ -38,24 +39,50 @@ public class CardInfo {
     private CreditStatus creditYn;
 
     // 생성자 메서드
-    public static CardInfo createCardInfo(String cardName, String companyName, TrafficStatus trafficYn, CreditStatus creditYn) {
+    public static CardInfo createCardInfo(CardInfoRequest cardInfoRequest) {
         CardInfo cardInfo = new CardInfo();
 
-        cardInfo.cardName = cardName;
-        cardInfo.companyName = companyName;
-        cardInfo.trafficYn = trafficYn;
-        cardInfo.creditYn = creditYn;
+        cardInfo.cardName = cardInfoRequest.getCardName();
+        cardInfo.companyName = cardInfoRequest.getCompanyName();
+        cardInfo.trafficYn = cardInfoRequest.getTrafficYn();
+        cardInfo.creditYn = cardInfoRequest.getCreditYn();
 
+        for(AnnualFeeRequest annualFeeRequest : cardInfoRequest.getAnnualFeeList()) {
+            AnnualFee.createAnnualFee(cardInfo,annualFeeRequest);
+        }
+        for(BenefitRequest benefitRequest : cardInfoRequest.getBenefitList()) {
+            Benefit.createBenefit(cardInfo,benefitRequest);
+        }
         return cardInfo;
     }
 
-    public void changeCardInfo(String cardName, String companyName) {
-        if (StringUtils.isNotEmpty(cardName)) {
-            this.cardName = cardName;
+    public void changeCardInfo(CardInfoRequest cardInfoRequest) {
+        if (StringUtils.isNotEmpty(cardInfoRequest.getCardName())) {
+            this.cardName = cardInfoRequest.getCardName();
         }
 
-        if (StringUtils.isNotEmpty(companyName)) {
-            this.cardName = companyName;
+        if (StringUtils.isNotEmpty(cardInfoRequest.getCompanyName())) {
+            this.cardName = cardInfoRequest.getCompanyName();
+        }
+
+        if (cardInfoRequest.getTrafficYn() != null) {
+            this.trafficYn = cardInfoRequest.getTrafficYn();
+        }
+
+        if (cardInfoRequest.getCreditYn() != null) {
+            this.creditYn = cardInfoRequest.getCreditYn();
+        }
+
+        if (cardInfoRequest.getAnnualFeeList() != null) {
+            for(AnnualFeeRequest annualFeeRequest : cardInfoRequest.getAnnualFeeList()) {
+                AnnualFee.createAnnualFee(this,annualFeeRequest);
+            }
+        }
+
+        if (cardInfoRequest.getBenefitList() != null) {
+            for(BenefitRequest benefitRequest : cardInfoRequest.getBenefitList()) {
+                Benefit.createBenefit(this,benefitRequest);
+            }
         }
     }
 }
