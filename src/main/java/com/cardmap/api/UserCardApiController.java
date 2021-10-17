@@ -43,34 +43,33 @@ public class UserCardApiController {
     /**
      * 사용자 카드 등록
      * @param request 등록할 카드 정보
-     * @param servletRequest 사용자 IP 확인용 파라미터
      * @return 등록 카드 정보
      */
     @PostMapping("")
-    public Long registUserCard (
-            @RequestBody @Valid CreateUserCardRequest request,
-            HttpServletRequest servletRequest) {
-        // 사용자 IP 주소 확인
-//        String userIp = AccessInfo.getUserRemoteAddress(servletRequest);
-//        request.setUserIp(userIp);
-        return userCardService.registUserCard(request);
+    public Long addUserCard (
+            @RequestBody @Valid CreateUserCardRequest request) {
+        return userCardService.addUserCard(request);
     }
 
     /**
      * 사용자 카드 정보 수정
      * @param seq 카드 일련 번호
      * @param request 수정할 카드 정보
-     * @param servletRequest 사용자 IP 확인용 파라미터
      */
     @PutMapping("/{userCardSeq}")
     public void updateUserCard (
             @PathVariable("userCardSeq") Long seq,
-            @RequestBody UpdateUserCardRequest request,
-            HttpServletRequest servletRequest) {
-        // 사용자 IP 주소 확인
-//        String userIp = AccessInfo.getUserRemoteAddress(servletRequest);
-//        request.setUserIp(userIp);
+            @RequestBody UpdateUserCardRequest request) {
         userCardService.updateUserCard(seq, request);
+    }
+
+    /**
+     * 사용자 카드 상태 수정 (USE -> NOT_USE, NOT_USE -> USE)
+     * @param seq
+     */
+    @PutMapping("/status/{userCardSeq}")
+    public void changeStatus(@PathVariable("userCardSeq") Long seq) {
+        userCardService.changeStatus(seq);
     }
 
     /**
@@ -84,15 +83,15 @@ public class UserCardApiController {
 
     /**
      * 카드 사용 내역 조회
-     * @param cardNo 카드 번호
+     * @param seq 카드 번호
      * @param request 카드 사용 내역 조회 조건
      * @return 카드 사용 내역 목록
      */
-    @GetMapping("/history/{cardNo}")
+    @GetMapping("/history/{userCardSeq}")
     public List<CardUseHistDto> getCardUseHist (
-            @PathVariable("cardNo") String cardNo,
+            @PathVariable("userCardSeq") Long seq,
             @RequestBody CardUseHistRequest request)  {
-        return userCardService.getCardUseHist(cardNo, request);
+        return userCardService.getCardUseHist(seq, request);
     }
 
 }

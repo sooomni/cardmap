@@ -6,6 +6,7 @@ import com.cardmap.dto.usercard.UpdateUserCardRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@ToString(of = {"cardNo", "cardNickname", "user", "cardInfo", "status"})
 @Table(name = "user_card")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserCard extends BaseInfo {
@@ -66,9 +68,14 @@ public class UserCard extends BaseInfo {
         if (request.getExpDate() != null) {
             this.expDate = request.getExpDate();
         }
+    }
 
-        if (request.getUseStatus() != null) {
-            this.status = request.getUseStatus();
+    public void changeStatus() {
+        if(status.equals(UseStatus.USE)) {
+            status = UseStatus.NOT_USE;
+        }
+        else {
+            status = UseStatus.USE;
         }
     }
 

@@ -32,14 +32,13 @@ public class UserCardService {
      * @return 등록 카드 일련 번호
      */
     @Transactional
-    public Long registUserCard(CreateUserCardRequest request) {
+    public Long addUserCard(CreateUserCardRequest request) {
 
-        // TODO user find method, cardInfo find method - Spring Data JPA에서 사용 가능
-        // User user = userRepository.findOne(request.getUserId());
-        CardInfo cardInfo = cardInfoRepository.findByCardInfoSeq(request.getCardInfoSeq()).get();
+        User user = userRepository.getUser(request.getUserId());
+        CardInfo cardInfo = cardInfoRepository.findByCardInfoSeq(request.getCardInfoSeq());
 
-        UserCard userCard = UserCard.createUserCard(null, cardInfo, request);
-        userCardRepository.save(userCard);
+        UserCard userCard = UserCard.createUserCard(user, cardInfo, request);
+        userCardRepository.addUserCard(userCard);
 
         return userCard.getSeq();
     }
@@ -53,6 +52,16 @@ public class UserCardService {
     public void updateUserCard(Long seq, UpdateUserCardRequest request) {
         UserCard userCard = userCardRepository.findBySeq(seq).get();
         userCard.changeInfo(request);
+    }
+
+    /**
+     * 사용자 카드 상태 수정 (USE -> NOT_USE, NOT_USE -> USE)
+     * @param seq
+     */
+    @Transactional
+    public void changeStatus(Long seq) {
+        UserCard userCard = userCardRepository.findBySeq(seq).get();
+        userCard.changeStatus();
     }
 
     /**
@@ -79,7 +88,7 @@ public class UserCardService {
      * @return 카드 목록
      */
     public List<UserCardInfoDto> getUserCardList(String userId) {
-        return userCardRepository.findByUser(userId)
+        return userCardRepository.findByUserId(userId)
                 .stream()
                 .map(UserCardInfoDto::new)
                 .collect(Collectors.toList());
@@ -87,12 +96,12 @@ public class UserCardService {
 
     /**
      * 카드 사용 내역 조회
-     * @param cardNo 카드 번호
+     * @param seq 카드 번호
      * @param request 카드 사용 내역 조회 조건
      * @return 카드 사용 내역 목록
      */
-    public List<CardUseHistDto> getCardUseHist(String cardNo, CardUseHistRequest request) {
-        return userCardQueryRepository.getCardUseHist(cardNo, request)
+    public List<CardUseHistDto> getCardUseHist(Long seq, CardUseHistRequest request) {
+        return userCardQueryRepository.getCardUseHist(seq, request)
                 .stream()
                 .map(CardUseHistDto::new)
                 .collect(Collectors.toList());
