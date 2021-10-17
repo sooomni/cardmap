@@ -57,7 +57,7 @@ class UserCardRepositoryTest {
 
     @BeforeEach
     public void before() {
-        
+
     }
 
     @Test
