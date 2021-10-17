@@ -26,11 +26,11 @@ public class CardDetailInfoDto {
 
     private CreditStatus creditYn;
 
-    public CardDetailInfoDto(CardInfo cardInfo, List<Benefit> benefitList, List<AnnualFee> annualFee) {
+    public CardDetailInfoDto(CardInfo cardInfo) {
         this.cardInfoSeq = cardInfo.getCardInfoSeq();
         this.cardName = cardInfo.getCardName();
         this.companyName = cardInfo.getCompanyName();
-        this.benefitList = benefitList;
+        this.benefitList = cardInfo.getBenefitList();
         this.annualFeeList = cardInfo.getAnnualFeeList();
         this.trafficYn = cardInfo.getTrafficYn();
         this.creditYn = cardInfo.getCreditYn();

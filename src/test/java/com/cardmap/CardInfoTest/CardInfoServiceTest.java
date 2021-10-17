@@ -2,8 +2,8 @@ package com.cardmap.CardInfoTest;
 
 import com.cardmap.domain.enums.CreditStatus;
 import com.cardmap.domain.enums.TrafficStatus;
-import com.cardmap.domain.repository.CardInfoRepository;]
-import com.cardmap.dto.cardinfo.CreateCardInfoRequest;
+import com.cardmap.domain.repository.CardInfoRepository;
+import com.cardmap.dto.cardinfo.CardInfoRequest;
 import com.cardmap.service.CardInfoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest( properties = { "testId=cardInfoTest01", "testName=CardInfoServiceTest" } )
 public class CardInfoServiceTest {
 
     @Autowired
@@ -23,7 +23,7 @@ public class CardInfoServiceTest {
     @Order(1)
     @DisplayName("1) 등록")
     public void create(){
-        cardInfoService.createCardInfo(new CreateCardInfoRequest("참 좋은 신한 카드","신한", TrafficStatus.USE, CreditStatus.USE));
+       // cardInfoService.createCardInfo(new CardInfoRequest("참 좋은 신한 카드","신한", TrafficStatus.USE, CreditStatus.USE));
     }
 
     @Test

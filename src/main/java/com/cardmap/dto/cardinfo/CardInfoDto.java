@@ -15,15 +15,26 @@ import java.util.List;
 @Data
 public class CardInfoDto {
 
-    private Long cardInfoSeq;
+    private String cardInfoSeq;
 
     private String cardName;
 
     private String companyName;
 
-    public CardInfoDto(Long cardInfoSeq, String cardName, String companyName) {
-        this.cardInfoSeq = cardInfoSeq;
-        this.cardName = cardName;
-        this.companyName = companyName;
+    private List<Benefit> benefitList;
+
+    private List<AnnualFee> annualFeeList;
+
+    private TrafficStatus trafficYn;
+
+    private CreditStatus creditYn;
+
+    public CardInfoDto(CardInfo cardInfo){
+        this.cardName = cardInfo.getCardName();
+        this.companyName = cardInfo.getCompanyName();
+        this.benefitList = cardInfo.getBenefitList();
+        this.annualFeeList = cardInfo.getAnnualFeeList();
+        this.trafficYn = cardInfo.getTrafficYn();
+        this.creditYn = cardInfo.getCreditYn();
     }
 }
