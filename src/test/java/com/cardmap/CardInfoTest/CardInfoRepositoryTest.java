@@ -1,9 +1,6 @@
 package com.cardmap.CardInfoTest;
 
-import com.cardmap.domain.entity.AnnualFee;
-import com.cardmap.domain.entity.Benefit;
 import com.cardmap.domain.entity.CardInfo;
-import com.cardmap.domain.entity.User;
 import com.cardmap.domain.enums.BenefitCategory;
 import com.cardmap.domain.enums.BenefitType;
 import com.cardmap.domain.enums.CreditStatus;
@@ -11,15 +8,12 @@ import com.cardmap.domain.enums.TrafficStatus;
 import com.cardmap.domain.repository.CardInfoQueryRepository;
 import com.cardmap.domain.repository.CardInfoRepository;
 
-import com.cardmap.dto.cardinfo.AnnualFeeDto;
-import com.cardmap.dto.cardinfo.BenefitDto;
-import com.cardmap.dto.cardinfo.CardInfoRequest;
+import com.cardmap.dto.cardinfo.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +36,10 @@ public class CardInfoRepositoryTest {
         //given
         int  beforeSize = cardInfoRepository.findAll().size();
 
-        List<BenefitDto> benefitList = new ArrayList<>();
-        benefitList.add(new BenefitDto(BenefitType.Card, "오픽 수강료 할인", BenefitCategory.ed, "50%"));
-        List<AnnualFeeDto> annualFeeList = new ArrayList<>();
-        annualFeeList.add(new AnnualFeeDto("VISA", 10000L));
+        List<BenefitRequest> benefitList = new ArrayList<>();
+        benefitList.add(new BenefitRequest(BenefitType.Card, "오픽 수강료 할인", BenefitCategory.ed, "50%"));
+        List<AnnualFeeRequest> annualFeeList = new ArrayList<>();
+        annualFeeList.add(new AnnualFeeRequest("VISA", 10000L));
 
         CardInfo cardInfo1 = CardInfo.createCardInfo(new CardInfoRequest("Good choice shinhan", "Shinhan", benefitList, annualFeeList, TrafficStatus.USE, CreditStatus.USE));
         CardInfo cardInfo2 = CardInfo.createCardInfo(new CardInfoRequest("Better choice BC", "BC", benefitList, annualFeeList, TrafficStatus.NOT_USE, CreditStatus.NOT_USE));

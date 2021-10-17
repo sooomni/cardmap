@@ -12,13 +12,14 @@ import java.util.List;
 public class CardInfoQueryRepository{
 
     private final EntityManager em;
+
     //검색
     public List<CardInfo> findCardInfoByCategoryAndKeyword(String category, String keyword){
-        return em.createQuery("select " +
-                                        "from CardInfo c join c.benefitList b" +
-                                        "where c.card_name =:keyword" +
-                                        "or c.company_name =:keyword" +
-                                        "or b.benefit_categoty = :category",CardInfo.class)
+        return em.createQuery("select c " +
+                                        "from CardInfo c join c.benefitList b "+
+                                        "where c.cardName =:keyword " +
+                                        "or c.companyName =:keyword " +
+                                        "or b.benefitCategory = :category",CardInfo.class)
                 .setParameter("keyword", keyword)
                 .setParameter("category", category)
                 .getResultList();

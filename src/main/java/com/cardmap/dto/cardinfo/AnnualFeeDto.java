@@ -12,13 +12,14 @@ import javax.persistence.ManyToOne;
 @Data
 public class AnnualFeeDto {
 
-    private CardInfo cardInfo;
+    private Long annualFeeSeq;
 
     private String cardBrand;
 
     private Long fee;
 
-    public AnnualFeeDto(String cardBrand, Long fee){
+    public AnnualFeeDto(Long annualFeeSeq, String cardBrand, Long fee){
+        this.annualFeeSeq = annualFeeSeq;
         this.cardBrand = cardBrand;
         this.fee = fee;
     }

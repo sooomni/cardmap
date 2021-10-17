@@ -5,9 +5,7 @@ import com.cardmap.domain.enums.BenefitType;
 import lombok.Data;
 
 @Data
-public class BenefitDto {
-
-    private Long benefitSeq;
+public class BenefitRequest {
 
     private BenefitType benefitType;
 
@@ -17,7 +15,7 @@ public class BenefitDto {
 
     private String performance;
 
-    public BenefitDto(BenefitType benefitType, String benefitCont, BenefitCategory benefitCategory,String performance) {
+    public BenefitRequest(BenefitType benefitType, String benefitCont, BenefitCategory benefitCategory, String performance) {
         this.benefitType = benefitType;
         this.benefitCont = benefitCont;
         this.benefitCategory = benefitCategory;

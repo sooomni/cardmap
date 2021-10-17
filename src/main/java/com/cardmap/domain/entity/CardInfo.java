@@ -1,9 +1,7 @@
 package com.cardmap.domain.entity;
 
 import com.cardmap.domain.enums.*;
-import com.cardmap.dto.cardinfo.AnnualFeeDto;
-import com.cardmap.dto.cardinfo.BenefitDto;
-import com.cardmap.dto.cardinfo.CardInfoRequest;
+import com.cardmap.dto.cardinfo.*;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.*;
 
@@ -49,11 +47,11 @@ public class CardInfo extends BaseInfo {
         cardInfo.trafficYn = cardInfoRequest.getTrafficYn();
         cardInfo.creditYn = cardInfoRequest.getCreditYn();
 
-        for(AnnualFeeDto annualFeeDto : cardInfoRequest.getAnnualFeeList()) {
-            AnnualFee.createAnnualFee(cardInfo,annualFeeDto);
+        for(AnnualFeeRequest annualFeeRequest : cardInfoRequest.getAnnualFeeList()) {
+            AnnualFee.createAnnualFee(cardInfo,annualFeeRequest);
         }
-        for(BenefitDto benefitDto : cardInfoRequest.getBenefitList()) {
-            Benefit.createBenefit(cardInfo,benefitDto);
+        for(BenefitRequest benefitRequest : cardInfoRequest.getBenefitList()) {
+            Benefit.createBenefit(cardInfo,benefitRequest);
         }
         return cardInfo;
     }
@@ -76,14 +74,14 @@ public class CardInfo extends BaseInfo {
         }
 
         if (cardInfoRequest.getAnnualFeeList() != null) {
-            for(AnnualFeeDto annualFeeDto : cardInfoRequest.getAnnualFeeList()) {
-                AnnualFee.createAnnualFee(this,annualFeeDto);
+            for(AnnualFeeRequest annualFeeRequest : cardInfoRequest.getAnnualFeeList()) {
+                AnnualFee.createAnnualFee(this,annualFeeRequest);
             }
         }
 
         if (cardInfoRequest.getBenefitList() != null) {
-            for(BenefitDto benefitDto : cardInfoRequest.getBenefitList()) {
-                Benefit.createBenefit(this,benefitDto);
+            for(BenefitRequest benefitRequest : cardInfoRequest.getBenefitList()) {
+                Benefit.createBenefit(this,benefitRequest);
             }
         }
     }

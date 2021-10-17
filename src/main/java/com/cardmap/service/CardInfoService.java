@@ -56,13 +56,13 @@ public class CardInfoService {
 
     //카드 검색
     public List<CardInfoDto> getCardInfoByCategoryAndKeyword(String category, String keyword) {
-       /* List <CardInfo> cardInfoByCategoryAndKeyword = CardInfoQueryRepository.findCardInfoByCategoryAndKeyword(category,keyword);
-        List<CardInfoDto> CardInfoDtoList = new ArrayList<>();
-        for(CardInfo cardInfo : cardInfoByCategoryAndKeyword){
-            CardInfoDtoList.add(new CardInfoDto(cardInfo));
-        }*/
-        List<CardInfoDto> CardInfoDtoList = new ArrayList<>();
 
+        List <CardInfo> cardInfoByCategoryAndKeyword = cardInfoQueryRepository.findCardInfoByCategoryAndKeyword(category,keyword);
+
+        List<CardInfoDto> CardInfoDtoList = new ArrayList<>();
+        for(CardInfo cardInfo : cardInfoByCategoryAndKeyword) {
+            CardInfoDtoList.add(new CardInfoDto(cardInfo));
+        }
         return CardInfoDtoList;
     }
 

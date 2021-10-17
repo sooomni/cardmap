@@ -3,6 +3,7 @@ package com.cardmap.domain.entity;
 import com.cardmap.domain.enums.BenefitCategory;
 import com.cardmap.domain.enums.BenefitType;
 import com.cardmap.dto.cardinfo.BenefitDto;
+import com.cardmap.dto.cardinfo.BenefitRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,13 +36,13 @@ public class Benefit {
     private String performance;
 
     // 생성자 메서드
-    public static Benefit createBenefit(CardInfo cardInfo, BenefitDto benefitDto){
+    public static Benefit createBenefit(CardInfo cardInfo, BenefitRequest benefitRequest){
         Benefit benefit = new Benefit();
 
-        benefit.benefitType = benefitDto.getBenefitType();
-        benefit.benefitCont = benefitDto.getBenefitCont();
-        benefit.benefitCategory = benefitDto.getBenefitCategory();
-        benefit.performance = benefitDto.getPerformance();
+        benefit.benefitType = benefitRequest.getBenefitType();
+        benefit.benefitCont = benefitRequest.getBenefitCont();
+        benefit.benefitCategory = benefitRequest.getBenefitCategory();
+        benefit.performance = benefitRequest.getPerformance();
         benefit.setCardInfo(cardInfo);
 
         return benefit;

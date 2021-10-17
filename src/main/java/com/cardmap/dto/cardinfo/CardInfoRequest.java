@@ -18,9 +18,9 @@ public class CardInfoRequest {
     @NotEmpty
     private String companyName;
 
-    private List<BenefitDto> benefitList;
+    private List<BenefitRequest> benefitList;
 
-    private List<AnnualFeeDto> annualFeeList;
+    private List<AnnualFeeRequest> annualFeeList;
 
     private TrafficStatus trafficYn;
 
