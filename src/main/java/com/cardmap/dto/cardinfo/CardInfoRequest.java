@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @Data
+@AllArgsConstructor
 public class CardInfoRequest {
 
     @NotEmpty
@@ -24,13 +25,4 @@ public class CardInfoRequest {
     private TrafficStatus trafficYn;
 
     private CreditStatus creditYn;
-
-    public CardInfoRequest(@NotEmpty String cardName, @NotEmpty String companyName, List<BenefitDto> benefitList, List<AnnualFeeDto> annualFeeList, TrafficStatus trafficYn, CreditStatus creditYn) {
-        this.cardName = cardName;
-        this.companyName = companyName;
-        this.benefitList = benefitList;
-        this.annualFeeList = annualFeeList;
-        this.trafficYn = trafficYn;
-        this.creditYn = creditYn;
-    }
 }
