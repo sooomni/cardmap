@@ -1,7 +1,6 @@
 package com.cardmap.api;
 
-import com.cardmap.dto.user.BookmarkDto;
-import com.cardmap.dto.user.RegistBookmarkRequest;
+import com.cardmap.domain.entity.Bookmark;
 import com.cardmap.dto.user.*;
 import com.cardmap.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -89,13 +88,13 @@ public class UserApiController {
     /**
      * 즐겨찾기 삭제
      * @param userId
-     * @param placeId
+     * @param seq
      */
-    @DeleteMapping("/{userId}/bookmarks/{placeId}")
+    @DeleteMapping("/{userId}/bookmarks/{seq}")
     public void deleteBookmark(
             @PathVariable("userId") String userId,
-            @PathVariable("placeId") String placeId){
-        userService.removeBookmark(userId,placeId);
+            @PathVariable("seq") long seq){
+        userService.removeBookmark(seq);
         return;
     }
 
