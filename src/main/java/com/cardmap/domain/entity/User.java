@@ -1,20 +1,15 @@
 package com.cardmap.domain.entity;
 
-import com.cardmap.domain.enums.UseStatus;
 import com.cardmap.domain.enums.UserStatus;
 import com.cardmap.dto.user.RegistUserRequest;
-import com.cardmap.dto.user.UpdateUserRequest;
-import io.micrometer.core.instrument.util.StringUtils;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.*;
 
 @Entity
 @Getter
@@ -50,14 +45,12 @@ public class User {
     private LocalDateTime regDate;
 
     // 생성자 메서드
-    public static User createUser(String id, String password, String userName, List<Bookmark> bookmarkList, List<UserCard> userCardList, UserStatus status, String mobile, String modId, String regId, LocalDateTime modDate, LocalDateTime regDate) {
+    public static User createUser(String id, String password, String userName, UserStatus status, String mobile, String modId, String regId, LocalDateTime modDate, LocalDateTime regDate) {
         User user = new User();
 
         user.id = id;
         user.password = password;
         user.userName = userName;
-        user.setBookmarkList(bookmarkList);
-        user.setUserCardList(userCardList);
         user.status = status;
         user.mobile = mobile;
         user.modId = modId;
@@ -68,7 +61,7 @@ public class User {
         return user;
     }
 
-    public static User createUser(RegistUserRequest request){
+    public static User createUser(RegistUserRequest request) {
         User user = new User();
         user.id = request.getId();
         user.password = request.getPassword();
@@ -80,31 +73,48 @@ public class User {
 
     // 연관 관계 메서드
     private void setBookmarkList(List<Bookmark> bookmarkList) {
-        this.bookmarkList.clear();
-        bookmarkList.forEach(value -> {
-            if (value != null) {
-                this.bookmarkList.add(value);
-            }
-        });
+        if (!bookmarkList.isEmpty()) {
+            bookmarkList.forEach(value -> {
+                if (value != null) {
+                    this.bookmarkList.add(value);
+                }
+            });
+        }
     }
 
     // 연관 관계 메서드
     private void setUserCardList(List<UserCard> userCardList) {
-        this.userCardList.clear();
-        userCardList.forEach(value -> {
-            if (value != null) {
-                this.userCardList.add(value);
-            }
-        });
+        if (!userCardList.isEmpty()) {
+            userCardList.forEach(value -> {
+                if (value != null) {
+                    this.userCardList.add(value);
+                }
+            });
+        }
     }
 
     public void changeInfo(String mobile) {
-        if(mobile != null){
+        if (mobile != null) {
             this.mobile = mobile;
         }
     }
 
     public void leaveAccount() {
 //        this.status = 탈퇴코드;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", userName='" + userName + '\'' +
+                ", status=" + status +
+                ", mobile='" + mobile + '\'' +
+                ", modId='" + modId + '\'' +
+                ", regId='" + regId + '\'' +
+                ", modDate=" + modDate +
+                ", regDate=" + regDate +
+                '}';
     }
 }

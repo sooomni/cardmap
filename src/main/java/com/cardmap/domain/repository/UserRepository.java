@@ -2,67 +2,21 @@ package com.cardmap.domain.repository;
 
 import com.cardmap.domain.entity.Bookmark;
 import com.cardmap.domain.entity.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-@RequiredArgsConstructor
-public class UserRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    private final EntityManager em;
 
-    /**
-     * 회원 정보 등록
-     *
-     * @param user
-     */
-    public void registUser(User user) {
-        em.persist(user);
-    }
+    // ID를 통한 User 조회
+    User findById(String Id);
 
-    /**
-     * 회원 정보 조회
-     * @param userId
-     * @return
-     */
-    public User getUser(String userId) {
-        return em.find(User.class, userId);
-    }
+    // 사용자명을 통한 ID 조회
+    User findByUserName(String userName);
 
-    public User findUserId(String userName) {
-        return em.find(User.class, userName);
-    }
-
-    public User findUserPassword(String userName) {
-        return em.find(User.class, userName);
-    }
-
-    public void registBookmark(Bookmark bookmark) {
-        em.persist(bookmark);
-    }
-
-    public void removeBookmark(String userId, String placeId) {
-        User user = em.find(User.class, userId);
-        em.createQuery(
-                        "delete from Bookmark" +
-                                " where userId =: userId" +
-                                " and plcaeId =: placeId"
-                        , Bookmark.class
-                )
-                .setParameter("userId", userId)
-                .setParameter("placeId", placeId);
-    }
-
-    public List<Bookmark> getBookmarkList(String userId) {
-        return em.createQuery(
-                        "select * from Bookmark" +
-                                " where userId = :userId"
-                        , Bookmark.class
-                )
-                .setParameter("userId", userId)
-                .getResultList();
-    }
+    // 사용자명을 통한 Password 조회
+    User findUserPasswordByUserName(String userName);
 }

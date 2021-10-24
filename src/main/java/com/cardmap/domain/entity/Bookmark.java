@@ -1,11 +1,13 @@
 package com.cardmap.domain.entity;
 
+import com.cardmap.dto.user.BookmarkDto;
 import com.cardmap.dto.user.RegistBookmarkRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,5 +34,13 @@ public class Bookmark {
         bookmark.user = user;
 
         return bookmark;
+    }
+
+    @Override
+    public String toString() {
+        return "Bookmark{" +
+                "seq=" + seq +
+                ", placeId='" + placeId + '\'' +
+                '}';
     }
 }

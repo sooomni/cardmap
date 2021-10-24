@@ -30,8 +30,8 @@ public class UserDto {
         this.id = user.getId();
         this.password = user.getPassword();
         this.userName = user.getUserName();
-        setBookmarkList(user.getBookmarkList());
-        setUserCardList(user.getUserCardList());
+        addBookmarkList(user.getBookmarkList());
+        addUserCardList(user.getUserCardList());
         this.status = user.getStatus();
         this.mobile = user.getMobile();
         this.modId = user.getModId();
@@ -41,17 +41,15 @@ public class UserDto {
 
     }
 
-    private void setBookmarkList(List<Bookmark> bookmarkList) {
-        this.bookmarkList.clear();
+    private void addBookmarkList(List<Bookmark> bookmarkList) {
         bookmarkList.forEach(value -> {
             if (value != null) {
-                this.bookmarkList.add(new BookmarkDto(value.getPlaceId()));
+                this.bookmarkList.add(new BookmarkDto(value));
             }
         });
     }
 
-    private void setUserCardList(List<UserCard> userCardList) {
-        this.userCardList.clear();
+    private void addUserCardList(List<UserCard> userCardList) {
         userCardList.forEach(value -> {
             if (value != null) {
                 this.userCardList.add(new UserCardInfoDto(value));
